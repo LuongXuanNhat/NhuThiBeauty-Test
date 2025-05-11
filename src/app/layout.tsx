@@ -22,7 +22,7 @@ export default function RootLayout({
     <html lang="vi">
       <body className="antialiased">
         <Header />
-        <main className="container mx-auto py-8">{children}</main>
+        <main>{children}</main>
         <Footer />
       </body>
     </html>

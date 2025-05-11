@@ -10,6 +10,7 @@ import { Menu, X } from "lucide-react";
 export default function Header() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
 
   // Kiểm tra kích thước màn hình để xác định mobile hay desktop
   useEffect(() => {
@@ -25,6 +26,19 @@ export default function Header() {
 
     // Cleanup
     return () => window.removeEventListener("resize", checkIfMobile);
+  }, []);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 10) {
+        setIsScrolled(true);
+      } else {
+        setIsScrolled(false);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   // Tính toán để chia menu thành 2 phần
@@ -47,7 +61,13 @@ export default function Header() {
   };
 
   return (
-    <header className="bg-pink-600 text-white px-4 py-2 shadow-md relative">
+    <header
+      className={`bg-pink-600 text-white px-4 py-2 shadow-md relative ${
+        isScrolled
+          ? "sticky top-0 z-40 transition-all duration-1000 shadow-lg"
+          : ""
+      }`}
+    >
       <nav className="container mx-auto">
         {/* Desktop Navigation */}
         <div className="hidden md:flex items-center justify-between">
@@ -57,7 +77,7 @@ export default function Header() {
               <li key={route.path}>
                 <Link
                   href={route.path}
-                  className="hover:text-pink-200 transition-colors"
+                  className="hover:text-pink-200 transition-colors font-bold"
                 >
                   {route.name}
                 </Link>
@@ -83,7 +103,7 @@ export default function Header() {
               <li key={route.path}>
                 <Link
                   href={route.path}
-                  className="hover:text-pink-200 transition-colors"
+                  className="hover:text-pink-200 transition-colors font-bold"
                 >
                   {route.name}
                 </Link>
@@ -140,7 +160,7 @@ export default function Header() {
               <li key={route.path}>
                 <Link
                   href={route.path}
-                  className="block py-2 hover:text-pink-200 transition-colors"
+                  className="block py-2 hover:text-pink-200 transition-colors font-bold"
                   onClick={handleNavLinkClick}
                 >
                   {route.name}
