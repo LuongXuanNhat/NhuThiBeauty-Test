@@ -9,15 +9,15 @@ export interface RouteItem {
 export const home: RouteItem = {
   path: "/",
   name: "Trang chủ",
-  file: "(home)/HomePage.tsx",
+  file: "(home)/page.tsx",
   title: "Trang chủ - Website tỉnh",
 };
 
 export const routes: RouteItem[] = [
   {
-    path: "/services",
+    path: "/#dich-vu",
     name: "Dịch vụ",
-    file: "(products)/list/ProductsPage.tsx",
+    file: "(home)/page.tsx",
     title: "Danh sách dịch vụ",
   },
   {
@@ -47,7 +47,7 @@ export const routes: RouteItem[] = [
   {
     path: "/about",
     name: "Giới thiệu",
-    file: "(static)/about/AboutPage.tsx",
-    title: "Giới thiệu về tỉnh",
+    file: "(static)/about.tsx",
+    title: "Giới thiệu - Nhu Thi Beauty",
   },
 ];
