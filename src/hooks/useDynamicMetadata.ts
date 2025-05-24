@@ -1,43 +1,75 @@
 // src/hooks/useDynamicMetadata.ts
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { usePathname } from "next/navigation";
 import { metadataMap } from "@/config/metadataMap";
 import type { Metadata } from "next";
 
 export const useDynamicMetadata = () => {
   const pathname = usePathname() ?? "";
+  const previousPathname = useRef<string>("");
 
   useEffect(() => {
+    // Chỉ update khi pathname thực sự thay đổi
+    if (previousPathname.current === pathname) {
+      return;
+    }
+
+    previousPathname.current = pathname;
     const metadata: Metadata | undefined = metadataMap[pathname];
 
+    // Update title với debounce để tránh conflict
     if (metadata?.title) {
-      document.title = metadata.title.toString();
+      // Sử dụng requestAnimationFrame để đảm bảo update DOM an toàn
+      requestAnimationFrame(() => {
+        const newTitle = metadata.title?.toString();
+        if (newTitle && document.title !== newTitle) {
+          document.title = newTitle;
+        }
+      });
     }
 
+    // Update description
     if (metadata?.description) {
-      const existingMeta = document.querySelector("meta[name='description']");
-      if (existingMeta) {
-        existingMeta.setAttribute("content", metadata.description.toString());
-      } else {
-        const meta = document.createElement("meta");
-        meta.name = "description";
-        meta.content = metadata.description.toString();
-        document.head.appendChild(meta);
-      }
+      requestAnimationFrame(() => {
+        const description = metadata.description?.toString();
+        let existingMeta = document.querySelector(
+          "meta[name='description']"
+        ) as HTMLMetaElement;
+
+        if (existingMeta) {
+          // if (existingMeta.content !== description) {
+          //   existingMeta.content = description;
+          // }
+        } else {
+          const meta = document.createElement("meta");
+          meta.name = "description";
+          // meta.content = description;
+          document.head.appendChild(meta);
+        }
+      });
     }
 
+    // Update favicon
     if (metadata?.icons && typeof metadata.icons === "string") {
-      const existingLink = document.querySelector("link[rel='icon']");
-      if (existingLink) {
-        existingLink.setAttribute("href", metadata.icons);
-      } else {
-        const link = document.createElement("link");
-        link.rel = "icon";
-        link.href = metadata.icons;
-        document.head.appendChild(link);
-      }
+      requestAnimationFrame(() => {
+        const iconUrl = metadata.icons as string;
+        let existingLink = document.querySelector(
+          "link[rel='icon']"
+        ) as HTMLLinkElement;
+
+        if (existingLink) {
+          if (existingLink.href !== iconUrl) {
+            existingLink.href = iconUrl;
+          }
+        } else {
+          const link = document.createElement("link");
+          link.rel = "icon";
+          link.href = iconUrl;
+          document.head.appendChild(link);
+        }
+      });
     }
   }, [pathname]);
 };

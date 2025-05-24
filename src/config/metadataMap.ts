@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import logo from "@/assets/logo/logo.png";
 
 export const metadataMap: Record<string, Metadata> = {
-  "/services": {
+  "/service": {
     title: "Dịch vụ - Nhu Thi Beauty",
     description: "Danh sách dịch vụ chất lượng tại Nhu Thi Beauty",
     icons: logo.src,
@@ -16,6 +16,11 @@ export const metadataMap: Record<string, Metadata> = {
   "/about": {
     title: "Về chúng tôi",
     description: "Giới thiệu về Như Thị Beauty",
+    icons: logo.src,
+  },
+  "/reviews": {
+    title: "Đánh giá - Nhu Thi Beauty",
+    description: "Các sản phẩm làm đẹp uy tín, chất lượng",
     icons: logo.src,
   },
   // các route khác...

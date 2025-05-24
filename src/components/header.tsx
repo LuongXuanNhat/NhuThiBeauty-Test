@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback, useMemo } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import logo from "@/assets/logo/logo.png";
@@ -12,59 +12,100 @@ export default function Header() {
   const [isMobile, setIsMobile] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
 
-  // Kiểm tra kích thước màn hình để xác định mobile hay desktop
-  useEffect(() => {
-    const checkIfMobile = () => {
-      setIsMobile(window.innerWidth < 768);
+  // Memoize routes để tránh re-calculation không cần thiết
+  const { leftRoutes, rightRoutes } = useMemo(() => {
+    const midPoint = Math.ceil(routes.length / 2);
+    return {
+      leftRoutes: routes.slice(0, midPoint),
+      rightRoutes: routes.slice(midPoint),
     };
-
-    // Kiểm tra lần đầu
-    checkIfMobile();
-
-    // Thêm event listener
-    window.addEventListener("resize", checkIfMobile);
-
-    // Cleanup
-    return () => window.removeEventListener("resize", checkIfMobile);
   }, []);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > 10) {
-        setIsScrolled(true);
-      } else {
-        setIsScrolled(false);
+  // Throttle scroll handler để tránh update quá nhiều
+  const handleScroll = useCallback(() => {
+    const scrollY = window.scrollY;
+    const shouldBeScrolled = scrollY > 10;
+
+    // Chỉ update state khi thực sự cần thiết
+    setIsScrolled((prev) => {
+      if (prev !== shouldBeScrolled) {
+        return shouldBeScrolled;
       }
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+      return prev;
+    });
   }, []);
 
-  // Tính toán để chia menu thành 2 phần
-  const midPoint = Math.ceil(routes.length / 2);
-  const leftRoutes = routes.slice(0, midPoint);
-  const rightRoutes = routes.slice(midPoint);
+  // Throttle resize handler
+  const handleResize = useCallback(() => {
+    const shouldBeMobile = window.innerWidth < 768;
+    setIsMobile((prev) => {
+      if (prev !== shouldBeMobile) {
+        return shouldBeMobile;
+      }
+      return prev;
+    });
+  }, []);
+
+  // Setup resize listener với throttling
+  useEffect(() => {
+    // Kiểm tra lần đầu
+    handleResize();
+
+    let timeoutId: NodeJS.Timeout;
+    const throttledResize = () => {
+      clearTimeout(timeoutId);
+      timeoutId = setTimeout(handleResize, 100);
+    };
+
+    window.addEventListener("resize", throttledResize);
+    return () => {
+      window.removeEventListener("resize", throttledResize);
+      clearTimeout(timeoutId);
+    };
+  }, [handleResize]);
+
+  // Setup scroll listener với throttling
+  useEffect(() => {
+    let timeoutId: NodeJS.Timeout;
+    const throttledScroll = () => {
+      clearTimeout(timeoutId);
+      timeoutId = setTimeout(handleScroll, 16); // ~60fps
+    };
+
+    window.addEventListener("scroll", throttledScroll, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", throttledScroll);
+      clearTimeout(timeoutId);
+    };
+  }, [handleScroll]);
 
   // Đóng sidebar khi chuyển từ mobile sang desktop
   useEffect(() => {
-    if (!isMobile) {
+    if (!isMobile && isSidebarOpen) {
+      setIsSidebarOpen(false);
+    }
+  }, [isMobile, isSidebarOpen]);
+
+  // Đóng sidebar sau khi click vào menu item trên mobile
+  const handleNavLinkClick = useCallback(() => {
+    if (isMobile) {
       setIsSidebarOpen(false);
     }
   }, [isMobile]);
 
-  // Đóng sidebar sau khi click vào menu item trên mobile
-  const handleNavLinkClick = () => {
-    if (isMobile) {
-      setIsSidebarOpen(false);
-    }
-  };
+  const toggleSidebar = useCallback(() => {
+    setIsSidebarOpen((prev) => !prev);
+  }, []);
+
+  const closeSidebar = useCallback(() => {
+    setIsSidebarOpen(false);
+  }, []);
 
   return (
     <header
       className={`bg-pink-600 text-white px-4 py-2 shadow-md relative ${
         isScrolled
-          ? "sticky top-0 z-40 transition-all duration-1000 shadow-lg"
+          ? "sticky top-0 z-40 transition-all duration-300 shadow-lg"
           : ""
       }`}
     >
@@ -130,7 +171,7 @@ export default function Header() {
           {/* Menu toggle button */}
           <div className="flex justify-end flex-1">
             <button
-              onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+              onClick={toggleSidebar}
               className="p-2 focus:outline-none"
               aria-label={isSidebarOpen ? "Đóng menu" : "Mở menu"}
             >
@@ -148,7 +189,7 @@ export default function Header() {
           <div className="flex justify-between items-center p-4 border-b border-pink-500">
             <h2 className="text-xl font-bold">Menu</h2>
             <button
-              onClick={() => setIsSidebarOpen(false)}
+              onClick={closeSidebar}
               className="p-2 focus:outline-none"
               aria-label="Đóng menu"
             >
@@ -174,7 +215,7 @@ export default function Header() {
         {isSidebarOpen && (
           <div
             className="fixed inset-0 bg-black/30 z-40 md:hidden"
-            onClick={() => setIsSidebarOpen(false)}
+            onClick={closeSidebar}
           />
         )}
       </nav>
