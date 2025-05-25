@@ -6,6 +6,7 @@ import Image from "next/image";
 import logo from "@/assets/logo/logo.png";
 import { routes, RouteItem } from "@/config/routes";
 import { Menu, X } from "lucide-react";
+import { usePathname } from "next/navigation";
 
 export default function Header() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -115,7 +116,10 @@ export default function Header() {
           {/* Left Menu Items */}
           <ul className="flex flex-1 justify-end space-x-6 pr-4">
             {leftRoutes.map((route: RouteItem) => (
-              <li key={route.path}>
+              <li
+                key={route.path}
+                className={usePathname() === route.path ? "border-b" : ""}
+              >
                 <Link
                   href={route.path}
                   className="hover:text-pink-200 transition-colors font-bold"
@@ -141,7 +145,10 @@ export default function Header() {
           {/* Right Menu Items */}
           <ul className="flex flex-1 justify-start space-x-6 pl-4">
             {rightRoutes.map((route: RouteItem) => (
-              <li key={route.path}>
+              <li
+                key={route.path}
+                className={usePathname() === route.path ? "border-b" : ""}
+              >
                 <Link
                   href={route.path}
                   className="hover:text-pink-200 transition-colors font-bold"
@@ -198,7 +205,10 @@ export default function Header() {
           </div>
           <ul className="p-4 space-y-4">
             {routes.map((route: RouteItem) => (
-              <li key={route.path}>
+              <li
+                key={route.path}
+                className={usePathname() === route.path ? "border-b" : ""}
+              >
                 <Link
                   href={route.path}
                   className="block py-2 hover:text-pink-200 transition-colors font-bold"

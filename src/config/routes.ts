@@ -30,12 +30,12 @@ export const routes: RouteItem[] = [
   {
     path: "/stories",
     name: "Câu chuyện",
-    file: "(static)/about/AboutPage.tsx",
+    file: "(static)/stories.tsx",
   },
   {
     path: "/promotions",
     name: "Khuyến mãi",
-    file: "(static)/about/AboutPage.tsx",
+    file: "(static)/promotions.tsx",
   },
   {
     path: "/about",

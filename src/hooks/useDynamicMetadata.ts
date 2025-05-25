@@ -11,7 +11,6 @@ export const useDynamicMetadata = () => {
   const previousPathname = useRef<string>("");
 
   useEffect(() => {
-    // Chỉ update khi pathname thực sự thay đổi
     if (previousPathname.current === pathname) {
       return;
     }
@@ -19,7 +18,6 @@ export const useDynamicMetadata = () => {
     previousPathname.current = pathname;
     const metadata: Metadata | undefined = metadataMap[pathname];
 
-    // Update title với debounce để tránh conflict
     if (metadata?.title) {
       // Sử dụng requestAnimationFrame để đảm bảo update DOM an toàn
       requestAnimationFrame(() => {

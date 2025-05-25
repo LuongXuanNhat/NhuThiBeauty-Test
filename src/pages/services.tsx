@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import Image, { StaticImageData } from "next/image";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
@@ -29,9 +29,19 @@ const ServicePopup: React.FC<ServicePopupProps> = ({
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
   const [isZoomed, setIsZoomed] = useState(false);
   const [zoomLevel, setZoomLevel] = useState(1);
-  const [imagePosition, setImagePosition] = useState({ x: 0, y: 0 });
+  const [imageTransform, setImageTransform] = useState({
+    x: 0,
+    y: 0,
+    scale: 1,
+  });
   const [isDragging, setIsDragging] = useState(false);
-  const [dragStart, setDragStart] = useState({ x: 0, y: 0 });
+  const [dragStart, setDragStart] = useState({
+    x: 0,
+    y: 0,
+    imageX: 0,
+    imageY: 0,
+  });
+  const imageContainerRef = useRef<HTMLDivElement>(null);
 
   if (!service) return null;
 
@@ -122,37 +132,85 @@ const ServicePopup: React.FC<ServicePopupProps> = ({
     serviceDetails.nail;
 
   const handleImageZoom = (e: React.MouseEvent) => {
-    if (isZoomed) {
-      setZoomLevel(1);
-      setImagePosition({ x: 0, y: 0 });
-      setIsZoomed(false);
-    } else {
-      setZoomLevel(2);
+    if (!imageContainerRef.current) return;
+
+    const rect = imageContainerRef.current.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+
+    // Tính toán vị trí tương đối so với center của container
+    const centerX = rect.width / 2;
+    const centerY = rect.height / 2;
+    const offsetX = x - centerX;
+    const offsetY = y - centerY;
+
+    if (!isZoomed) {
+      // Zoom in tại vị trí click
+      const newScale = 2.5;
+      const newX = -offsetX * (newScale - 1);
+      const newY = -offsetY * (newScale - 1);
+
+      setImageTransform({
+        x: newX,
+        y: newY,
+        scale: newScale,
+      });
       setIsZoomed(true);
+    } else {
+      // Zoom out về center
+      setImageTransform({
+        x: 0,
+        y: 0,
+        scale: 1,
+      });
+      setIsZoomed(false);
     }
   };
 
   const handleMouseDown = (e: React.MouseEvent) => {
     if (isZoomed) {
+      e.preventDefault();
       setIsDragging(true);
       setDragStart({
-        x: e.clientX - imagePosition.x,
-        y: e.clientY - imagePosition.y,
+        x: e.clientX,
+        y: e.clientY,
+        imageX: imageTransform.x,
+        imageY: imageTransform.y,
       });
     }
   };
 
   const handleMouseMove = (e: React.MouseEvent) => {
     if (isDragging && isZoomed) {
-      setImagePosition({
-        x: e.clientX - dragStart.x,
-        y: e.clientY - dragStart.y,
-      });
+      const deltaX = e.clientX - dragStart.x;
+      const deltaY = e.clientY - dragStart.y;
+
+      setImageTransform((prev) => ({
+        ...prev,
+        x: dragStart.imageX + deltaX,
+        y: dragStart.imageY + deltaY,
+      }));
     }
   };
 
   const handleMouseUp = () => {
     setIsDragging(false);
+  };
+
+  const resetZoom = () => {
+    setImageTransform({
+      x: 0,
+      y: 0,
+      scale: 1,
+    });
+    setIsZoomed(false);
+    setIsDragging(false);
+  };
+
+  // Reset zoom when changing images
+  const handleImageChange = (index: number) => {
+    setSelectedImageIndex(index);
+    resetZoom();
   };
 
   return (
@@ -258,7 +316,7 @@ const ServicePopup: React.FC<ServicePopupProps> = ({
                             ? "border-pink-400"
                             : "border-transparent"
                         }`}
-                        onClick={() => setSelectedImageIndex(index)}
+                        onClick={() => handleImageChange(index)}
                       >
                         <Image
                           src={image}
@@ -275,26 +333,33 @@ const ServicePopup: React.FC<ServicePopupProps> = ({
                 {/* Main Image */}
                 <div className="flex-1 relative bg-gray-100 overflow-hidden">
                   <div
-                    className="relative w-full h-full cursor-pointer"
+                    ref={imageContainerRef}
+                    className="relative w-full h-full select-none"
                     onMouseDown={handleMouseDown}
                     onMouseMove={handleMouseMove}
                     onMouseUp={handleMouseUp}
                     onMouseLeave={handleMouseUp}
+                    style={{
+                      cursor: isZoomed
+                        ? isDragging
+                          ? "grabbing"
+                          : "grab"
+                        : "zoom-in",
+                    }}
                   >
                     <Image
                       src={service.images[selectedImageIndex]}
                       alt={`Service image ${selectedImageIndex + 1}`}
                       fill
-                      className="object-cover transition-transform duration-300"
+                      className="object-cover transition-transform duration-300 pointer-events-none"
                       style={{
-                        transform: `scale(${zoomLevel}) translate(${imagePosition.x}px, ${imagePosition.y}px)`,
-                        cursor: isZoomed
-                          ? isDragging
-                            ? "grabbing"
-                            : "grab"
-                          : "zoom-in",
+                        transform: `scale(${imageTransform.scale}) translate(${
+                          imageTransform.x / imageTransform.scale
+                        }px, ${imageTransform.y / imageTransform.scale}px)`,
+                        transformOrigin: "center center",
                       }}
                       onClick={handleImageZoom}
+                      draggable={false}
                     />
                   </div>
 
@@ -317,6 +382,19 @@ const ServicePopup: React.FC<ServicePopupProps> = ({
                         <Move size={20} className="text-gray-600" />
                       </motion.div>
                     )}
+                    {isZoomed && (
+                      <motion.button
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        whileHover={{ scale: 1.1 }}
+                        whileTap={{ scale: 0.9 }}
+                        onClick={resetZoom}
+                        className="p-2 bg-white/90 hover:bg-white rounded-full shadow-lg text-gray-600"
+                        title="Reset zoom"
+                      >
+                        <X size={20} />
+                      </motion.button>
+                    )}
                   </div>
                 </div>
               </div>
@@ -337,6 +415,7 @@ interface ServiceItem {
 }
 
 export default function Service({ isActive = true }: { isActive?: boolean }) {
+  console.log(isActive);
   if (isActive) useDynamicMetadata();
   const [selectedService, setSelectedService] = useState<ServiceItem | null>(
     null

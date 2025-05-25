@@ -1,49 +1,14 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Image, { StaticImageData } from "next/image";
 import Link from "next/link";
 import { reviewDataSource } from "@/utils/reviewDataSource";
 import { Review } from "@/model/review";
 import { InitialAvatar } from "@/components/Avatar";
 import Pagination from "@/components/pagination";
-
-interface ImageModalProps {
-  isOpen: boolean;
-  imageUrl: StaticImageData;
-  onClose: () => void;
-}
-
-// Component Modal hiển thị ảnh phóng to
-const ImageModal: React.FC<ImageModalProps> = ({
-  isOpen,
-  imageUrl,
-  onClose,
-}) => {
-  if (!isOpen) return null;
-
-  return (
-    <div
-      className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50 p-4"
-      onClick={onClose}
-    >
-      <div className="relative max-w-4xl max-h-full">
-        <button
-          onClick={onClose}
-          className="absolute -top-10 right-0 text-white text-2xl hover:text-gray-300 z-10"
-        >
-          ✕
-        </button>
-        <Image
-          src={imageUrl}
-          alt="Review image"
-          className="max-w-full max-h-[80vh] object-contain"
-          onClick={(e) => e.stopPropagation()}
-        />
-      </div>
-    </div>
-  );
-};
+import { useDynamicMetadata } from "@/hooks/useDynamicMetadata";
+import ImageModal from "@/components/ImageModel";
 
 // Component Card Review đơn lẻ
 interface ReviewCardProps {
@@ -51,9 +16,16 @@ interface ReviewCardProps {
 }
 
 const ReviewCard: React.FC<ReviewCardProps> = ({ review }) => {
+  useDynamicMetadata();
   const [selectedImage, setSelectedImage] = useState<StaticImageData | null>(
     null
   );
+  useEffect(() => {
+    if (review && review.images && review.images.length > 0) {
+      setSelectedImage(review.images[0]);
+    }
+  }, [review]);
+
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -71,7 +43,7 @@ const ReviewCard: React.FC<ReviewCardProps> = ({ review }) => {
     setCurrentImageIndex(index);
   };
 
-  const handleImageClick = () => {
+  const handleImageClick = (displayImage: StaticImageData) => {
     if (selectedImage) {
       setIsModalOpen(true);
     }
@@ -124,12 +96,12 @@ const ReviewCard: React.FC<ReviewCardProps> = ({ review }) => {
                 alt="Review image"
                 fill
                 className="object-cover cursor-pointer hover:opacity-90 transition-opacity"
-                onClick={handleImageClick}
+                onClick={() => handleImageClick(displayImage)}
               />
 
               {/* Thumbnail navigation overlay */}
               {review.images && review.images.length > 1 && (
-                <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 p-2">
+                <div className="absolute bottom-0 left-0 right-0 bg-black/15 p-2">
                   <div className="flex gap-1 overflow-x-auto">
                     {review.images.map((image, index) => (
                       <button
