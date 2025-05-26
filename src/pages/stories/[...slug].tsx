@@ -9,7 +9,7 @@ const StoriesDynamicRoute = () => {
     router.replace("/stories", currentPath, { shallow: true });
   }, [router]);
 
-  return null; // Hoặc loading spinner
+  return null;
 };
 
 export default StoriesDynamicRoute;

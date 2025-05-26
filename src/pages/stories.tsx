@@ -5,8 +5,10 @@ import { Blog } from "@/model/blog";
 import { blogDataSource } from "@/utils/blogDataSource";
 import Pagination from "@/components/pagination";
 import BlogModal from "@/components/BlogModel";
+import { useDynamicMetadata } from "@/hooks/useDynamicMetadata";
 
 const StoriesPage: React.FC = () => {
+  useDynamicMetadata();
   const router = useRouter();
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(12);
@@ -168,7 +170,7 @@ const StoriesPage: React.FC = () => {
 
               {/* Subtitle - Hiện khi hover */}
               {blog.subTitle && (
-                <div className="absolute inset-x-0 bottom-0 bg-white/95 backdrop-blur-sm p-4 translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+                <div className="absolute inset-x-0 bottom-0 bg-white/80 backdrop-blur-sm p-4 translate-y-full group-hover:translate-y-0 transition-transform duration-300">
                   <p className="text-sm text-gray-700 line-clamp-3">
                     {blog.subTitle}
                   </p>
