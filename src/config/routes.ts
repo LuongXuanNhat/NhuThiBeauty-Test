@@ -20,7 +20,7 @@ export const routes: RouteItem[] = [
   {
     path: "/products",
     name: "Sản phẩm",
-    file: "(products)/list/ProductsPage.tsx",
+    file: "(static)/products.tsx",
   },
   {
     path: "/reviews",
