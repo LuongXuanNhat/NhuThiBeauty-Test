@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
-import Head from "next/head";
 import { Blog } from "@/model/blog";
 import ImageModal from "./ImageModel";
 
@@ -20,7 +19,7 @@ const BlogModal: React.FC<BlogModalProps> = ({ isOpen, blog, onClose }) => {
     setSelectedImageIndex(0);
   }, [blog.id]);
 
-  // Handle escape key
+  // Handle escape key and body scroll
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape" && isOpen) {
@@ -49,23 +48,51 @@ const BlogModal: React.FC<BlogModalProps> = ({ isOpen, blog, onClose }) => {
     }).format(new Date(date));
   };
 
-  // Get current page URL
-  const getCurrentUrl = () => {
+  // Helper function tạo slug
+  const createSlug = (title: string): string => {
+    return title
+      .toLowerCase()
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .replace(/[đĐ]/g, "d")
+      .replace(/[^a-z0-9\s-]/g, "")
+      .replace(/\s+/g, "-")
+      .replace(/-+/g, "-")
+      .trim();
+  };
+
+  // Get current blog URL
+  const getBlogUrl = () => {
     if (typeof window !== "undefined") {
-      return `${window.location.origin}${window.location.pathname}?blog=${blog.id}`;
+      const slug = createSlug(blog.title);
+      const baseUrl = window.location.origin;
+      return `${baseUrl}/stories/${blog.id}/${slug}`;
     }
     return "";
   };
 
-  // Copy link function
+  // Copy link function - sử dụng URL SEO-friendly
   const handleCopyLink = async () => {
     try {
-      const blogUrl = getCurrentUrl();
+      const blogUrl = getBlogUrl();
       await navigator.clipboard.writeText(blogUrl);
       setCopySuccess(true);
       setTimeout(() => setCopySuccess(false), 2000);
     } catch (err) {
       console.error("Failed to copy link:", err);
+      // Fallback for browsers không support clipboard API
+      try {
+        const textArea = document.createElement("textarea");
+        textArea.value = getBlogUrl();
+        document.body.appendChild(textArea);
+        textArea.select();
+        document.execCommand("copy");
+        document.body.removeChild(textArea);
+        setCopySuccess(true);
+        setTimeout(() => setCopySuccess(false), 2000);
+      } catch (fallbackErr) {
+        console.error("Fallback copy failed:", fallbackErr);
+      }
     }
   };
 
@@ -76,135 +103,35 @@ const BlogModal: React.FC<BlogModalProps> = ({ isOpen, blog, onClose }) => {
     }
   };
 
-  // Generate meta description from content
-  const getMetaDescription = (content: string): string => {
-    // Remove HTML tags and get first 160 characters
-    const textContent = content.replace(/<[^>]*>/g, "").trim();
-    return textContent.length > 160
-      ? textContent.substring(0, 157) + "..."
-      : textContent;
-  };
+  // Handle social sharing
+  const handleShare = (platform: "facebook" | "twitter" | "zalo") => {
+    const blogUrl = encodeURIComponent(getBlogUrl());
+    const title = encodeURIComponent(blog.title);
+    const description = encodeURIComponent(blog.subTitle || blog.title);
 
-  // Get the first image for og:image
-  const getOgImage = (): string => {
-    if (blog.images && blog.images.length > 0) {
-      // Ensure absolute URL
-      const imageUrl = blog.images[0];
-      if (imageUrl.src.startsWith("http")) {
-        return imageUrl.src;
-      }
-      // Convert relative URL to absolute
-      if (typeof window !== "undefined") {
-        return `${window.location.origin}${imageUrl}`;
-      }
+    let shareUrl = "";
+
+    switch (platform) {
+      case "facebook":
+        shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${blogUrl}`;
+        break;
+      case "twitter":
+        shareUrl = `https://twitter.com/intent/tweet?url=${blogUrl}&text=${title}`;
+        break;
+      case "zalo":
+        shareUrl = `https://zalo.me/share?url=${blogUrl}&title=${title}&desc=${description}`;
+        break;
     }
-    // Fallback to default image
-    return typeof window !== "undefined"
-      ? `${window.location.origin}/images/nhu-thi-spa-default.jpg`
-      : "";
+
+    if (shareUrl) {
+      window.open(shareUrl, "_blank", "width=600,height=400");
+    }
   };
 
   if (!isOpen) return null;
 
-  const currentUrl = getCurrentUrl();
-  const metaDescription = getMetaDescription(blog.content);
-  const ogImage = getOgImage();
-
   return (
     <>
-      <Head>
-        {/* Basic Meta Tags */}
-        <title>{blog.title} - Nhu Thi Spa & Beauty</title>
-        <meta name="description" content={metaDescription} />
-        <meta
-          name="keywords"
-          content="spa, beauty, làm đẹp, chăm sóc da, massage, Nhu Thi Spa"
-        />
-
-        {/* Open Graph / Facebook */}
-        <meta property="og:type" content="article" />
-        <meta
-          property="og:title"
-          content={`${blog.title} - Nhu Thi Spa & Beauty`}
-        />
-        <meta property="og:description" content={metaDescription} />
-        <meta property="og:image" content={ogImage} />
-        <meta property="og:image:width" content="1200" />
-        <meta property="og:image:height" content="630" />
-        <meta property="og:image:alt" content={blog.title} />
-        <meta property="og:url" content={currentUrl} />
-        <meta property="og:site_name" content="Nhu Thi Spa & Beauty" />
-        <meta property="og:locale" content="vi_VN" />
-        {blog.date && (
-          <meta
-            property="article:published_time"
-            content={new Date(blog.date).toISOString()}
-          />
-        )}
-        <meta property="article:section" content="Beauty & Spa" />
-        <meta property="article:tag" content="spa,beauty,làm đẹp" />
-
-        {/* Twitter Card */}
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta
-          name="twitter:title"
-          content={`${blog.title} - Nhu Thi Spa & Beauty`}
-        />
-        <meta name="twitter:description" content={metaDescription} />
-        <meta name="twitter:image" content={ogImage} />
-        <meta name="twitter:image:alt" content={blog.title} />
-        <meta name="twitter:site" content="@nhuthispa" />
-        <meta name="twitter:creator" content="@nhuthispa" />
-
-        {/* Additional Meta for Zalo */}
-        <meta
-          property="zalo:title"
-          content={`${blog.title} - Nhu Thi Spa & Beauty`}
-        />
-        <meta property="zalo:description" content={metaDescription} />
-        <meta property="zalo:image" content={ogImage} />
-
-        {/* Additional Meta for better SEO */}
-        <meta name="author" content="Nhu Thi Spa & Beauty" />
-        <meta name="robots" content="index, follow" />
-        <link rel="canonical" href={currentUrl} />
-
-        {/* Structured Data for Rich Snippets */}
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "Article",
-              headline: blog.title,
-              description: metaDescription,
-              image: ogImage,
-              author: {
-                "@type": "Organization",
-                name: "Nhu Thi Spa & Beauty",
-              },
-              publisher: {
-                "@type": "Organization",
-                name: "Nhu Thi Spa & Beauty",
-                logo: {
-                  "@type": "ImageObject",
-                  url:
-                    typeof window !== "undefined"
-                      ? `${window.location.origin}/images/logo.png`
-                      : "",
-                },
-              },
-              datePublished: blog.date ? new Date(blog.date).toISOString() : "",
-              dateModified: blog.date ? new Date(blog.date).toISOString() : "",
-              mainEntityOfPage: {
-                "@type": "WebPage",
-                "@id": currentUrl,
-              },
-            }),
-          }}
-        />
-      </Head>
-
       <div
         className="fixed inset-0 bg-black/60 flex items-center justify-center z-40 p-4"
         onClick={onClose}
@@ -218,6 +145,7 @@ const BlogModal: React.FC<BlogModalProps> = ({ isOpen, blog, onClose }) => {
             <button
               onClick={onClose}
               className="absolute top-4 right-4 text-white hover:text-gray-200 text-2xl font-bold w-8 h-8 flex items-center justify-center rounded-full hover:bg-white/20 transition-all"
+              aria-label="Đóng modal"
             >
               ×
             </button>
@@ -240,7 +168,7 @@ const BlogModal: React.FC<BlogModalProps> = ({ isOpen, blog, onClose }) => {
           </div>
 
           {/* Content */}
-          <div className="flex flex-col lg:flex-row h-full max-h-[calc(90vh-140px)] min-h-96 overflow-hidden">
+          <div className="flex flex-col lg:flex-row h-full max-h-[calc(90vh-180px)] min-h-96 overflow-hidden">
             {/* Left Column - Content */}
             <div className="flex-1 lg:w-1/2 p-6 overflow-y-auto">
               <div
@@ -251,9 +179,9 @@ const BlogModal: React.FC<BlogModalProps> = ({ isOpen, blog, onClose }) => {
 
             {/* Right Column - Images */}
             {blog.images && blog.images.length > 0 && (
-              <div className="flex-1 lg:w-1/2 p-6 flex flex-col border-t lg:border-t-0 lg:border-l border-gray-200 relative">
+              <div className="flex-1 lg:w-1/2 p-6 flex flex-col border-t lg:border-t-0 lg:border-l border-gray-200">
                 {/* Main Image */}
-                <div className="flex-1 mb-4">
+                <div className="flex-1 mb-4 relative">
                   <div
                     className="relative h-64 md:h-80 lg:h-full w-full bg-gray-100 rounded-lg overflow-hidden cursor-pointer group"
                     onClick={handleImageClick}
@@ -282,9 +210,10 @@ const BlogModal: React.FC<BlogModalProps> = ({ isOpen, blog, onClose }) => {
                       </div>
                     </div>
                   </div>
+
                   {/* Thumbnail Navigation */}
                   {blog.images.length > 1 && (
-                    <div className="flex gap-2 overflow-x-auto pb-2 absolute bottom-0">
+                    <div className="flex gap-2 mt-4 overflow-x-auto">
                       {blog.images.map((image, index) => (
                         <button
                           key={index}
@@ -310,19 +239,64 @@ const BlogModal: React.FC<BlogModalProps> = ({ isOpen, blog, onClose }) => {
             )}
           </div>
 
-          {/* Footer */}
-          <div className="m-6 border border-pink-400 rounded-lg absolute bottom-0">
-            <div className="flex justify-between items-center">
+          {/* Footer - Actions */}
+          <div className="p-6 border-t border-gray-200 bg-gray-50">
+            <div className="flex flex-wrap gap-3 justify-between items-center">
+              {/* Copy Link Button */}
               <button
                 onClick={handleCopyLink}
-                className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
+                className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all ${
                   copySuccess
                     ? "bg-green-100 text-green-700"
                     : "bg-pink-100 text-pink-700 hover:bg-pink-200"
                 }`}
               >
+                <svg
+                  className="w-4 h-4"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"
+                  />
+                </svg>
                 {copySuccess ? "Đã sao chép!" : "Sao chép link"}
               </button>
+
+              {/* Social Share Buttons */}
+              <div className="flex gap-2">
+                <button
+                  onClick={() => handleShare("facebook")}
+                  className="flex items-center gap-1 px-3 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm"
+                >
+                  <svg
+                    className="w-4 h-4"
+                    fill="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+                  </svg>
+                  Chia sẻ
+                </button>
+
+                <button
+                  onClick={() => handleShare("zalo")}
+                  className="flex items-center gap-1 px-3 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors text-sm"
+                >
+                  <svg
+                    className="w-4 h-4"
+                    fill="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm4.5 14.5h-9v-1h9v1zm0-2h-9v-1h9v1zm0-2h-9v-1h9v1zm0-2h-9v-1h9v1z" />
+                  </svg>
+                  Zalo
+                </button>
+              </div>
             </div>
           </div>
         </div>
