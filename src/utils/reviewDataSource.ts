@@ -15,7 +15,7 @@ export const reviewDataSource: Review[] = [
   {
     name: "Huyền",
     avatar: huyenAvatar,
-    content: "Dịch vụ tuyệt vời, nhân viên thân thiện và rất chuyên nghiệp!",
+    content: "Dịch vụ tốt, nhân viên thân thiện và rất chuyên nghiệp!",
     date: new Date("2024-11-12"),
     images: [huyenImg1, huyenImg2, huyenImg3],
   },

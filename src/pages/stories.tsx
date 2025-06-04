@@ -116,11 +116,11 @@ const StoriesPage: React.FC = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-pink-50 to-rose-50">
       {/* Header */}
-      <div className="bg-white shadow-sm">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div className="">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5">
           <div className="text-center">
             <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-              Nhu Thi Stories
+              Như Thị Beauty
             </h1>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto">
               Khám phá những bí kíp chăm sóc da, làm đẹp và chia sẻ về các sản

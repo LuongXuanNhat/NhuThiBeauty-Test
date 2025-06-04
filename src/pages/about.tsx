@@ -191,8 +191,9 @@ export default function About() {
               <p className="text-gray-600 mb-6 leading-relaxed">
                 Với niềm đam mê và tâm huyết với ngành làm đẹp, Như đã không
                 ngừng học hỏi và phát triển để mang đến những dịch vụ làm đẹp
-                tốt nhất. Từ một ước mơ nhỏ, Như Thị Beauty đã trở thành địa chỉ
-                làm đẹp uy tín được nhiều khách hàng tin tưởng lựa chọn.
+                chu đáo, tận tâm nhất. Từ một ước mơ nhỏ, Như Thị Beauty đã trở
+                thành địa chỉ làm đẹp uy tín được nhiều khách hàng tin tưởng ghé
+                thăm.
               </p>
               <Link
                 href={spaInfo.owner.facebook}
@@ -300,7 +301,7 @@ export default function About() {
             <p className="text-lg text-gray-600 max-w-3xl mx-auto">
               Như Thị Beauty mang đến không gian làm đẹp hiện đại, tinh tế và
               sang trọng để khách hàng có thể thư giãn và tận hưởng những phút
-              giây tuyệt vời.
+              giây thoải mái.
             </p>
           </motion.div>
 

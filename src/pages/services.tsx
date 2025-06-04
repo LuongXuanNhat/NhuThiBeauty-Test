@@ -51,7 +51,7 @@ const ServicePopup: React.FC<ServicePopupProps> = ({
       title: "Dịch vụ Nail Chuyên Nghiệp",
       price: "200.000 - 800.000 VNĐ",
       description:
-        "Chúng tôi cung cấp dịch vụ nail chuyên nghiệp với các kỹ thuật hiện đại, sử dụng sản phẩm chất lượng cao từ các thương hiệu nổi tiếng. Đội ngũ thợ nail có kinh nghiệm sẽ mang đến cho bạn bộ móng tay hoàn hảo.",
+        "Chúng tôi cung cấp dịch vụ nail chuyên nghiệp với các kỹ thuật hiện đại, sử dụng sản phẩm tốt từ các thương hiệu nổi tiếng. Đội ngũ thợ nail có kinh nghiệm sẽ mang đến cho bạn bộ móng tay hoàn hảo.",
       features: [
         "Sơn gel cao cấp",
         "Nail art sáng tạo",
@@ -90,12 +90,12 @@ const ServicePopup: React.FC<ServicePopupProps> = ({
       title: "Trị Mụn Chuyên Sâu",
       price: "400.000 - 1.000.000 VNĐ",
       description:
-        "Liệu trình trị mụn chuyên sâu với công nghệ hiện đại, sản phẩm y khoa an toàn. Đội ngũ chuyên viên da liễu sẽ tư vấn và điều trị phù hợp với từng loại da.",
+        "Liệu trình trị mụn chuyên sâu với công nghệ hiện đại, sản phẩm y khoa. Đội ngũ chuyên viên da liễu sẽ tư vấn và chăm sóc phù hợp với từng loại da.",
       features: [
         "Tư vấn chuyên sâu",
         "Công nghệ IPL/LED",
         "Sản phẩm y khoa",
-        "Theo dõi sau điều trị",
+        "Theo dõi sau liệu trình",
       ],
       duration: "90-120 phút",
     },
@@ -103,11 +103,11 @@ const ServicePopup: React.FC<ServicePopupProps> = ({
       title: "Peel Da Tái Sinh",
       price: "500.000 - 1.500.000 VNĐ",
       description:
-        "Dịch vụ peel da chuyên nghiệp giúp tái sinh làn da, mờ thâm nám, se khít lỗ chân lông. Sử dụng acid tự nhiên an toàn cho mọi loại da.",
+        "Dịch vụ peel da chuyên nghiệp giúp tái sinh làn da, mờ thâm nám, se khít lỗ chân lông. Sử dụng acid tự nhiên phù hợp với nhiều loại da.",
       features: [
         "Peel acid tự nhiên",
         "Tái sinh da hiệu quả",
-        "An toàn cho mọi loại da",
+        "Phù hợp mọi loại da",
         "Chăm sóc sau peel",
       ],
       duration: "60-90 phút",
@@ -448,7 +448,7 @@ export default function Service({ isActive = true }: { isActive?: boolean }) {
       key: "acne_treatment",
       images: CarouselServiceHeadWashing,
       title: "Trị mụn",
-      description: "Điều trị mụn chuyên sâu với công nghệ hiện đại",
+      description: "Loại bỏ mụn chuyên sâu với công nghệ hiện đại",
       useCount: 1223,
     },
     {

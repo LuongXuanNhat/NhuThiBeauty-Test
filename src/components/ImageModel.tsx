@@ -89,12 +89,6 @@ const ImageModal: React.FC<ImageModalProps> = ({
     setIsDragging(false);
   };
 
-  // Handle double click to reset zoom
-  const handleDoubleClick = () => {
-    setScale(1);
-    setPosition({ x: 0, y: 0 });
-  };
-
   // Handle escape key
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -131,37 +125,6 @@ const ImageModal: React.FC<ImageModalProps> = ({
           x
         </button>
 
-        {/* Zoom controls */}
-        <div className="absolute top-4 left-4 flex flex-col gap-2 z-10">
-          <button
-            onClick={() => {
-              const newScale = Math.min(scale * 1.2, 5);
-              setScale(newScale);
-            }}
-            className="w-10 h-10 bg-black bg-opacity-50 hover:bg-opacity-70 text-white rounded-full flex items-center justify-center transition-all"
-          >
-            +
-          </button>
-          <button
-            onClick={() => {
-              const newScale = Math.max(scale * 0.8, 0.5);
-              setScale(newScale);
-              if (newScale === 1) {
-                setPosition({ x: 0, y: 0 });
-              }
-            }}
-            className="w-10 h-10 bg-black bg-opacity-50 hover:bg-opacity-70 text-white rounded-full flex items-center justify-center transition-all"
-          >
-            −
-          </button>
-          <button
-            onClick={handleDoubleClick}
-            className="w-10 h-10 bg-black bg-opacity-50 hover:bg-opacity-70 text-white rounded-full flex items-center justify-center transition-all text-xs"
-          >
-            1:1
-          </button>
-        </div>
-
         {/* Instructions */}
         <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 text-white text-sm bg-black/60 px-4 py-2 rounded-lg">
           <p>Lăn chuột để zoom • Kéo để di chuyển • Double click để reset</p>
@@ -175,7 +138,6 @@ const ImageModal: React.FC<ImageModalProps> = ({
           onMouseMove={handleMouseMove}
           onMouseUp={handleMouseUp}
           onMouseLeave={handleMouseUp}
-          onDoubleClick={handleDoubleClick}
           onClick={(e) => e.stopPropagation()}
           style={{
             cursor: scale > 1 ? (isDragging ? "grabbing" : "grab") : "zoom-in",

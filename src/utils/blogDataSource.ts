@@ -56,16 +56,16 @@ export const blogDataSource: Blog[] = [
     title: "Công nghệ trẻ hóa da bằng ánh sáng sinh học",
     subTitle: null,
     content:
-      "Liệu pháp ánh sáng sinh học đang dần trở thành xu hướng mới trong ngành làm đẹp. Bằng cách sử dụng các bước sóng ánh sáng khác nhau, công nghệ này giúp kích thích sản sinh collagen, làm mờ nếp nhăn và cải thiện sắc tố da một cách an toàn.",
+      "Liệu pháp ánh sáng sinh học đang dần trở thành xu hướng mới trong ngành làm đẹp. Bằng cách sử dụng các bước sóng ánh sáng khác nhau, công nghệ này giúp kích thích sản sinh collagen, làm mờ nếp nhăn và cải thiện sắc tố da trở nên săn chắc hơn",
     date: new Date("2024-07-05"),
     images: [blog3a, blog3b],
   },
   {
     id: 4,
     title: "Tại sao bạn nên thử trị liệu đá nóng ít nhất một lần?",
-    subTitle: "Trải nghiệm thư giãn tuyệt vời cho cả cơ thể và tâm trí",
+    subTitle: "Trải nghiệm thư giãn sảng khoái cho cả cơ thể và tâm trí",
     content:
-      "Trị liệu đá nóng là phương pháp sử dụng đá bazan nóng đặt lên các huyệt đạo để giảm đau nhức và cân bằng năng lượng. Đây là lựa chọn lý tưởng cho người thường xuyên mỏi cơ, mất ngủ hoặc bị stress kéo dài.",
+      "Trị liệu đá nóng là phương pháp sử dụng đá bazan nóng đặt lên các huyệt đạo để giảm đau nhức và cân bằng năng lượng. Đây là phương pháp lý tưởng cho người thường xuyên mỏi cơ, mất ngủ hoặc bị stress kéo dài.",
     date: new Date("2024-06-22"),
     images: null,
   },
@@ -74,7 +74,7 @@ export const blogDataSource: Blog[] = [
     title: "Xu hướng làm đẹp tự nhiên lên ngôi",
     subTitle: "Tối giản nhưng hiệu quả – bí quyết giữ gìn vẻ đẹp bền vững",
     content:
-      "Làm đẹp tự nhiên với nguyên liệu hữu cơ, ít hóa chất đang trở thành xu hướng được yêu thích. Từ dầu dừa, trà xanh đến nha đam, các thành phần thiên nhiên không chỉ an toàn mà còn mang lại hiệu quả rõ rệt khi sử dụng đúng cách.",
+      "Làm đẹp tự nhiên với nguyên liệu hữu cơ, ít hóa chất đang trở thành xu hướng được yêu thích. Từ dầu dừa, trà xanh đến nha đam, các thành phần thiên nhiên mang lại hiệu quả rõ rệt khi sử dụng đúng cách.",
     date: new Date("2024-07-18"),
     images: [blog5a],
   },

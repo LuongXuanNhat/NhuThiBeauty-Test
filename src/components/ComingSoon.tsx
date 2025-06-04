@@ -133,7 +133,7 @@ const ComingSoonPage = () => {
           <p className="text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed">
             Chúng tôi đang chuẩn bị một không gian làm đẹp hoàn toàn mới với
             những dịch vụ chăm sóc da và làm đẹp tiên tiến nhất. Hãy cùng chờ
-            đón những trải nghiệm tuyệt vời sắp tới!
+            đón những trải nghiệm tốt sắp tới!
           </p>
         </div>
 
@@ -198,7 +198,7 @@ const ComingSoonPage = () => {
             {[
               {
                 title: "Chăm sóc da mặt",
-                desc: "Điều trị chuyên sâu với công nghệ hiện đại",
+                desc: "Chu đáo, cẩn thận và chuyên sâu với công nghệ hiện đại",
                 icon: "✨",
               },
               {
