@@ -116,10 +116,10 @@ const ServicePopup: React.FC<ServicePopupProps> = ({
       title: "Triệt Lông Vĩnh Viễn",
       price: "200.000 - 2.000.000 VNĐ",
       description:
-        "Công nghệ triệt lông IPL và Diode Laser hiện đại, an toàn và hiệu quả. Phù hợp cho mọi vùng trên cơ thể với tỷ lệ triệt lông cao.",
+        "Công nghệ triệt lông IPL và Diode Laser hiện đại và hiệu quả. Phù hợp cho mọi vùng trên cơ thể với tỷ lệ triệt lông cao.",
       features: [
         "Công nghệ IPL/Diode Laser",
-        "An toàn và hiệu quả",
+        "Hiệu quả nhanh",
         "Phù hợp mọi vùng",
         "Bảo hành dài hạn",
       ],
@@ -462,7 +462,7 @@ export default function Service({ isActive = true }: { isActive?: boolean }) {
       key: "hair_removal",
       images: CarouselServiceHeadWashing,
       title: "Triệt lông",
-      description: "Triệt lông vĩnh viễn an toàn và hiệu quả",
+      description: "Triệt lông vĩnh viễn hiệu quả có bảo trì",
       useCount: 1289,
     },
   ];

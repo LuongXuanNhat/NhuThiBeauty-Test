@@ -29,10 +29,10 @@ export const blogDataSource: Blog[] = [
           Một trong những lợi ích nổi bật của massage là khả năng <strong>kích thích hệ thần kinh</strong> và làm dịu tâm trí. Việc xoa bóp các vùng cơ bị căng cứng sẽ làm giảm sự tích tụ của <strong>acid lactic</strong> và các độc tố trong cơ thể, giúp bạn cảm thấy <strong>sảng khoái</strong> và dễ chịu hơn. Ngoài ra, massage còn làm tăng sản sinh các hormone như <strong>endorphin</strong> và <strong>serotonin</strong> – hai chất dẫn truyền thần kinh giúp cải thiện tâm trạng và giảm lo âu.
         </p>
         <p class="mb-4">
-          Không dừng lại ở đó, massage còn có tác dụng tích cực đến <strong>hệ miễn dịch</strong> bằng cách thúc đẩy <strong>tuần hoàn bạch huyết</strong>, giúp loại bỏ độc tố ra khỏi cơ thể. Đối với những người thường xuyên làm việc văn phòng, ít vận động, massage giúp cải thiện <strong>tư thế cơ thể</strong>, giảm đau cổ vai gáy và ngăn ngừa các vấn đề về cột sống.
+          Không dừng lại ở đó, massage còn có tác dụng tích cực đến <strong>hệ miễn dịch</strong> bằng cách thúc đẩy <strong>tuần hoàn bạch huyết</strong>, giúp loại bỏ độc tố ra ngoài cơ thể. Đối với những người thường xuyên làm việc văn phòng, ít vận động, massage giúp cải thiện <strong>tư thế cơ thể</strong>, giảm đau cổ vai gáy và ngăn ngừa các vấn đề về cột sống.
         </p>
         <p class="mb-4">
-          Đặc biệt, trong các spa hiện đại, massage thư giãn thường đi kèm với không gian yên tĩnh, âm nhạc nhẹ nhàng và mùi hương tinh dầu dễ chịu, giúp bạn <strong>thư giãn toàn diện</strong>. Đây là một lựa chọn lý tưởng dành cho những ai muốn tìm lại sự cân bằng trong cuộc sống bận rộn.
+          Đặc biệt, trong các spa hiện đại, massage thư giãn thường đi kèm với không gian yên tĩnh, âm nhạc nhẹ nhàng và mùi hương tinh dầu dễ chịu, giúp bạn <strong>thư giãn toàn diện</strong>. Đây là nơi lý tưởng dành cho những ai muốn tìm lại sự cân bằng trong cuộc sống bận rộn.
         </p>
         <p>
           Nếu bạn đang cảm thấy căng thẳng, mất ngủ hay đau mỏi cơ thể, đừng ngần ngại dành cho mình một buổi <strong>trị liệu massage</strong> chuyên nghiệp. Chỉ cần 60 phút thư giãn, bạn sẽ cảm nhận được sự khác biệt rõ rệt cả về <strong>tinh thần</strong> lẫn <strong>sức khỏe</strong>.
