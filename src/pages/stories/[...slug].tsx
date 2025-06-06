@@ -18,9 +18,13 @@ const StoriesDynamicRoute = ({ blog, notFound }: StoriesDynamicRouteProps) => {
   const router = useRouter();
 
   useEffect(() => {
-    // Redirect to stories page với modal state
-    const currentPath = window.location.pathname;
-    router.replace("/stories", currentPath, { shallow: true });
+    // Delay redirect để đảm bảo meta tags được crawl
+    const timer = setTimeout(() => {
+      const currentPath = window.location.pathname;
+      router.replace("/stories", currentPath, { shallow: true });
+    }, 100);
+
+    return () => clearTimeout(timer);
   }, [router]);
 
   // Generate meta description from content
@@ -31,15 +35,21 @@ const StoriesDynamicRoute = ({ blog, notFound }: StoriesDynamicRouteProps) => {
       : textContent;
   };
 
-  // Get absolute image URL
+  // Get absolute image URL - FIX: Kiểm tra cấu trúc ảnh
   const getAbsoluteImageUrl = (imageUrl: string): string => {
-    if (imageUrl?.startsWith("http")) {
+    if (!imageUrl) return "";
+
+    if (imageUrl.startsWith("http")) {
       return imageUrl;
     }
+
     // Tạo absolute URL từ relative path
-    const baseUrl =
-      process.env.NEXT_PUBLIC_BASE_URL || "https://your-domain.com";
-    return `${baseUrl}${imageUrl}`;
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
+
+    // Đảm bảo imageUrl bắt đầu bằng /
+    const cleanImageUrl = imageUrl.startsWith("/") ? imageUrl : `/${imageUrl}`;
+
+    return `${baseUrl}${cleanImageUrl}`;
   };
 
   // Format date
@@ -65,16 +75,23 @@ const StoriesDynamicRoute = ({ blog, notFound }: StoriesDynamicRouteProps) => {
   }
 
   const metaDescription = getMetaDescription(blog.content);
-  const ogImage =
-    blog.images && blog.images.length > 0
-      ? getAbsoluteImageUrl(blog.images[0].src)
-      : `${
-          process.env.NEXT_PUBLIC_BASE_URL || "https://your-domain.com"
-        }/images/nhu-thi-spa-default.jpg`;
 
-  const currentUrl = `${
-    process.env.NEXT_PUBLIC_BASE_URL || "https://your-domain.com"
-  }/stories/${blog.id}/${createSlug(blog.title)}`;
+  // FIX: Xử lý ảnh thumbnail đúng cách
+  let ogImage = "";
+  if (blog.images && blog.images.length > 0) {
+    const firstImage = blog.images[0];
+    const imageUrl = firstImage?.src;
+    ogImage = getAbsoluteImageUrl(imageUrl);
+  }
+
+  // Fallback image nếu không có ảnh
+  if (!ogImage) {
+    ogImage = `${process.env.NEXT_PUBLIC_BASE_URL}/logo.png`;
+  }
+
+  const currentUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/stories/${
+    blog.id
+  }/${createSlug(blog.title)}`;
 
   return (
     <>
@@ -87,7 +104,7 @@ const StoriesDynamicRoute = ({ blog, notFound }: StoriesDynamicRouteProps) => {
           content="spa, beauty, làm đẹp, chăm sóc da, massage, Nhu Thi Spa"
         />
 
-        {/* Open Graph / Facebook */}
+        {/* Open Graph / Facebook - ENHANCED */}
         <meta property="og:type" content="article" />
         <meta
           property="og:title"
@@ -95,9 +112,11 @@ const StoriesDynamicRoute = ({ blog, notFound }: StoriesDynamicRouteProps) => {
         />
         <meta property="og:description" content={metaDescription} />
         <meta property="og:image" content={ogImage} />
+        <meta property="og:image:secure_url" content={ogImage} />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
         <meta property="og:image:alt" content={blog.title} />
+        <meta property="og:image:type" content="image/jpeg" />
         <meta property="og:url" content={currentUrl} />
         <meta property="og:site_name" content="Nhu Thi Spa & Beauty" />
         <meta property="og:locale" content="vi_VN" />
@@ -107,7 +126,7 @@ const StoriesDynamicRoute = ({ blog, notFound }: StoriesDynamicRouteProps) => {
         <meta property="article:section" content="Beauty & Spa" />
         <meta property="article:tag" content="spa,beauty,làm đẹp" />
 
-        {/* Twitter Card */}
+        {/* Twitter Card - ENHANCED */}
         <meta name="twitter:card" content="summary_large_image" />
         <meta
           name="twitter:title"
@@ -117,6 +136,7 @@ const StoriesDynamicRoute = ({ blog, notFound }: StoriesDynamicRouteProps) => {
         <meta name="twitter:image" content={ogImage} />
         <meta name="twitter:image:alt" content={blog.title} />
         <meta name="twitter:site" content="@nhuthispa" />
+        <meta name="twitter:creator" content="@nhuthispa" />
 
         {/* Additional Meta for Zalo */}
         <meta
@@ -126,12 +146,20 @@ const StoriesDynamicRoute = ({ blog, notFound }: StoriesDynamicRouteProps) => {
         <meta property="zalo:description" content={metaDescription} />
         <meta property="zalo:image" content={ogImage} />
 
+        {/* LinkedIn specific */}
+        <meta
+          property="linkedin:title"
+          content={`${blog.title} - Nhu Thi Spa & Beauty`}
+        />
+        <meta property="linkedin:description" content={metaDescription} />
+        <meta property="linkedin:image" content={ogImage} />
+
         {/* SEO Meta */}
         <meta name="author" content="Nhu Thi Spa & Beauty" />
         <meta name="robots" content="index, follow" />
         <link rel="canonical" href={currentUrl} />
 
-        {/* Structured Data */}
+        {/* Structured Data - ENHANCED */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -140,7 +168,12 @@ const StoriesDynamicRoute = ({ blog, notFound }: StoriesDynamicRouteProps) => {
               "@type": "Article",
               headline: blog.title,
               description: metaDescription,
-              image: ogImage,
+              image: {
+                "@type": "ImageObject",
+                url: ogImage,
+                width: 1200,
+                height: 630,
+              },
               author: {
                 "@type": "Organization",
                 name: "Nhu Thi Spa & Beauty",
@@ -162,10 +195,20 @@ const StoriesDynamicRoute = ({ blog, notFound }: StoriesDynamicRouteProps) => {
                 "@type": "WebPage",
                 "@id": currentUrl,
               },
+              url: currentUrl,
             }),
           }}
         />
       </Head>
+
+      {/* FIX: Render một phần nội dung thay vì chỉ Loading */}
+      <div style={{ display: "none" }}>
+        {/* Hidden content for crawlers */}
+        <h1>{blog.title}</h1>
+        <p>{metaDescription}</p>
+        {ogImage && <img src={ogImage} alt={blog.title} />}
+      </div>
+
       <div>Loading...</div>
     </>
   );
@@ -202,7 +245,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     };
   }
 
-  // Tìm blog theo ID
   const blog = blogDataSource.find((b) => b.id === blogId);
 
   if (!blog) {

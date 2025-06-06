@@ -103,31 +103,6 @@ const BlogModal: React.FC<BlogModalProps> = ({ isOpen, blog, onClose }) => {
     }
   };
 
-  // Handle social sharing
-  const handleShare = (platform: "facebook" | "twitter" | "zalo") => {
-    const blogUrl = encodeURIComponent(getBlogUrl());
-    const title = encodeURIComponent(blog.title);
-    const description = encodeURIComponent(blog.subTitle || blog.title);
-
-    let shareUrl = "";
-
-    switch (platform) {
-      case "facebook":
-        shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${blogUrl}`;
-        break;
-      case "twitter":
-        shareUrl = `https://twitter.com/intent/tweet?url=${blogUrl}&text=${title}`;
-        break;
-      case "zalo":
-        shareUrl = `https://zalo.me/share?url=${blogUrl}&title=${title}&desc=${description}`;
-        break;
-    }
-
-    if (shareUrl) {
-      window.open(shareUrl, "_blank", "width=600,height=400");
-    }
-  };
-
   if (!isOpen) return null;
 
   return (
@@ -209,7 +184,7 @@ const BlogModal: React.FC<BlogModalProps> = ({ isOpen, blog, onClose }) => {
                 {/* Main Image */}
                 <div className="flex-1 relative">
                   <div
-                    className="relative h-64 md:h-80 lg:h-full w-full bg-gray-100 rounded-lg overflow-hidden cursor-pointer group"
+                    className="relative h-64 md:h-80 lg:h-full w-full bg-gray-100  overflow-hidden cursor-pointer group"
                     onClick={handleImageClick}
                   >
                     <Image
