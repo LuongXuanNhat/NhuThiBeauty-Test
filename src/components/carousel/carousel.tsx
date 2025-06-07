@@ -43,8 +43,9 @@ const Carousel: React.FC<CarouselProps> = ({ images, height = 600 }) => {
               src={img}
               alt={`Slide ${index + 1}`}
               fill
+              quality={100}
               className="object-cover"
-              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              sizes="max-width: 100vw"
               priority={index === 0}
             />
           </div>
@@ -53,13 +54,13 @@ const Carousel: React.FC<CarouselProps> = ({ images, height = 600 }) => {
 
       <button
         onClick={goToPrev}
-        className="absolute top-1/2 left-4 -translate-y-1/2 bg-white/50 p-2 rounded-full hover:bg-white shadow"
+        className="absolute top-1/2 z-10 left-4 -translate-y-1/2 bg-white/50 p-2 rounded-full hover:bg-white shadow"
       >
         <ChevronLeft />
       </button>
       <button
         onClick={goToNext}
-        className="absolute top-1/2 right-4 -translate-y-1/2 bg-white/50 p-2 rounded-full hover:bg-white shadow"
+        className="absolute top-1/2 z-10 right-4 -translate-y-1/2 bg-white/50 p-2 rounded-full hover:bg-white shadow"
       >
         <ChevronRight />
       </button>

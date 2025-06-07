@@ -1,10 +1,5 @@
 import Carousel from "@/components/carousel/carousel";
-import {
-  CarouselFirst,
-  CarouselServiceNail,
-  CarouselServiceEyelash,
-  CarouselServiceHeadWashing,
-} from "@/utils/carousel/item";
+import { Carousel_06_2025 } from "@/utils/carousel/item";
 import Image from "next/image";
 import Link from "next/link";
 import { Users } from "lucide-react";
@@ -21,7 +16,7 @@ export const metadata: Metadata = {
 export default function Home() {
   return (
     <div className="">
-      <Carousel images={CarouselFirst} />
+      <Carousel images={Carousel_06_2025} />
 
       {/* Service | Dịch vụ  */}
       <Service isActive={false} />

@@ -19,7 +19,18 @@ import mi3 from "@/assets/carousel/services/eyelash/474326579_122132918558545409
 import head_washing1 from "@/assets/carousel/services/head_washing/474445217_122133386936545409_1181672318532099895_n.jpg";
 import head_washing2 from "@/assets/carousel/services/head_washing/480665858_122138214284545409_7972783884091834262_n.jpg";
 
+// Service mụn
+import acne_a1 from "@/assets/carousel/services/acne_treatment/mun0.jpg";
+import acne_a2 from "@/assets/carousel/services/acne_treatment/mun1.jpg";
+import acne_a3 from "@/assets/carousel/services/acne_treatment/mun3.jpg";
+
+import banner0625a1 from "@/assets/carousel/banners/banner_06_2025/banner0.png";
+import banner0625a2 from "@/assets/carousel/banners/banner_06_2025/banner1.png";
+import banner0625a3 from "@/assets/carousel/banners/banner_06_2025/banner3.png";
 export const CarouselFirst = [item1, item2, item3];
+export const Carousel_06_2025 = [banner0625a1, banner0625a2, banner0625a3];
+
 export const CarouselServiceNail = [nail1, nail2, nail3, nail4];
 export const CarouselServiceEyelash = [mi1, mi2, mi3];
+export const CarouselServiceAcneTreatment = [acne_a1, acne_a2, acne_a3];
 export const CarouselServiceHeadWashing = [head_washing1, head_washing2];

@@ -10,6 +10,7 @@ import {
   CarouselServiceNail,
   CarouselServiceEyelash,
   CarouselServiceHeadWashing,
+  CarouselServiceAcneTreatment,
 } from "@/utils/carousel/item";
 import Carousel from "@/components/carousel/carousel";
 import { Users, X, ZoomIn, ZoomOut, Move } from "lucide-react";
@@ -446,7 +447,7 @@ export default function Service({ isActive = true }: { isActive?: boolean }) {
     },
     {
       key: "acne_treatment",
-      images: CarouselServiceHeadWashing,
+      images: CarouselServiceAcneTreatment,
       title: "Trị mụn",
       description: "Loại bỏ mụn chuyên sâu với công nghệ hiện đại",
       useCount: 1223,

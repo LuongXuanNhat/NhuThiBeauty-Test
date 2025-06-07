@@ -104,7 +104,7 @@ export default function Header() {
 
   return (
     <header
-      className={`bg-pink-600 text-white px-4 py-2 shadow-md relative ${
+      className={`bg-gradient-to-br from-pink-400 to-pink-500 text-white px-4 py-2 shadow-sm relative ${
         isScrolled
           ? "sticky top-0 z-40 transition-all duration-300 shadow-lg"
           : ""
@@ -122,7 +122,7 @@ export default function Header() {
               >
                 <Link
                   href={route.path}
-                  className="hover:text-pink-200 transition-colors font-bold"
+                  className="hover:text-pink-200 transition-colors font-bold text-shadow-2xs"
                 >
                   {route.name}
                 </Link>
