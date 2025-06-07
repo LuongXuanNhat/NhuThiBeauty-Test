@@ -2,7 +2,9 @@ import bannedWordsRule from "./eslint/no-banned-words.mjs";
 import typescriptParser from "@typescript-eslint/parser";
 
 export default [
-  // Chỉ scan src/ folder
+  {
+    ignores: ["src/config/metadataMap.ts"],
+  },
   {
     files: ["src/**/*.{js,ts,tsx}"],
     languageOptions: {
