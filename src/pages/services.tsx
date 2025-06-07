@@ -4,7 +4,10 @@ import React, { useState, useRef } from "react";
 import Image, { StaticImageData } from "next/image";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
-import { useDynamicMetadata } from "@/hooks/useDynamicMetadata";
+import {
+  getMetadataByPath,
+  useDynamicMetadata,
+} from "@/hooks/useDynamicMetadata";
 import {
   CarouselFirst,
   CarouselServiceNail,
@@ -14,6 +17,7 @@ import {
 } from "@/utils/carousel/item";
 import Carousel from "@/components/carousel/carousel";
 import { Users, X, ZoomIn, ZoomOut, Move } from "lucide-react";
+import { Metadata } from "next";
 
 // Service Popup Component
 interface ServicePopupProps {
@@ -414,6 +418,8 @@ interface ServiceItem {
   description: string;
   useCount: number;
 }
+
+export const metadata: Metadata = getMetadataByPath("/services");
 
 export default function Service({ isActive = true }: { isActive?: boolean }) {
   console.log(isActive);

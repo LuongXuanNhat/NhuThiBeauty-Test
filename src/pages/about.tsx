@@ -21,7 +21,13 @@ import ownerImage from "@/assets/images/owner.jpg";
 import teamImage from "@/assets/images/team.jpg";
 import treatmentImage1 from "@/assets/images/treatment1.jpg";
 import treatmentImage2 from "@/assets/images/treatment2.jpg";
-import { useDynamicMetadata } from "@/hooks/useDynamicMetadata";
+import {
+  getMetadataByPath,
+  useDynamicMetadata,
+} from "@/hooks/useDynamicMetadata";
+import { Metadata } from "next";
+
+export const metadata: Metadata = getMetadataByPath("/about");
 
 export default function About() {
   useDynamicMetadata();

@@ -5,8 +5,13 @@ import { Blog } from "@/model/blog";
 import { blogDataSource } from "@/utils/blogDataSource";
 import Pagination from "@/components/pagination";
 import BlogModal from "@/components/BlogModel";
-import { useDynamicMetadata } from "@/hooks/useDynamicMetadata";
+import {
+  getMetadataByPath,
+  useDynamicMetadata,
+} from "@/hooks/useDynamicMetadata";
+import { Metadata } from "next";
 
+export const metadata: Metadata = getMetadataByPath("/stories");
 const StoriesPage: React.FC = () => {
   useDynamicMetadata();
   const router = useRouter();

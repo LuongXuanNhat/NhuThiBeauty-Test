@@ -173,7 +173,7 @@ const BlogModal: React.FC<BlogModalProps> = ({ isOpen, blog, onClose }) => {
             {/* Left Column - Content */}
             <div className="flex-1 lg:w-1/2 p-6 overflow-y-auto ">
               <div
-                className="prose prose-sm md:prose-base max-w-none text-gray-700 leading-relaxed"
+                className="prose prose-sm md:prose-base max-w-none text-gray-700 leading-relaxed mb-5"
                 dangerouslySetInnerHTML={{ __html: blog.content }}
               />
             </div>

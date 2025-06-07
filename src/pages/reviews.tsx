@@ -7,13 +7,19 @@ import { reviewDataSource } from "@/utils/reviewDataSource";
 import { Review } from "@/model/review";
 import { InitialAvatar } from "@/components/Avatar";
 import Pagination from "@/components/pagination";
-import { useDynamicMetadata } from "@/hooks/useDynamicMetadata";
+import {
+  getMetadataByPath,
+  useDynamicMetadata,
+} from "@/hooks/useDynamicMetadata";
 import ImageModal from "@/components/ImageModel";
+import { Metadata } from "next";
 
 // Component Card Review đơn lẻ
 interface ReviewCardProps {
   review: Review;
 }
+
+export const metadata: Metadata = getMetadataByPath("/reviews");
 
 const ReviewCard: React.FC<ReviewCardProps> = ({ review }) => {
   useDynamicMetadata();
