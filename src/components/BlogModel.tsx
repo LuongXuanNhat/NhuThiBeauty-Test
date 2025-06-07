@@ -125,53 +125,53 @@ const BlogModal: React.FC<BlogModalProps> = ({ isOpen, blog, onClose }) => {
               ×
             </button>
 
-            <h1 className="text-xl md:text-2xl font-bold mb-3 pr-12">
+            <h1 className="text-xl md:text-2xl font-bold pr-12 text-shadow-2xs">
               {blog.title}
             </h1>
-
-            <div className="flex flex-col sm:flex-row sm:items-center gap-2 text-pink-100">
-              <div className="flex items-center">
-                <button
-                  title="Sao chép link"
-                  onClick={handleCopyLink}
-                  className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all ${
-                    copySuccess
-                      ? "bg-green-100 text-green-700"
-                      : "bg-pink-100 text-pink-700 hover:bg-pink-200"
-                  }`}
-                >
-                  <svg
-                    className="w-4 h-4"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"
-                    />
-                  </svg>
-                </button>
-                {blog.date && (
-                  <span className="text-sm ml-2">{formatDate(blog.date)}</span>
-                )}
-              </div>
-
-              {blog.date && blog.subTitle && (
-                <span className="hidden sm:inline">|</span>
-              )}
-              {blog.subTitle && (
-                <span className="text-sm opacity-90">{blog.subTitle}</span>
-              )}
-            </div>
           </div>
 
           {/* Content */}
           <div className="flex flex-col lg:flex-row h-full max-h-[calc(90vh-180px)] min-h-96 overflow-hidden">
             {/* Left Column - Content */}
-            <div className="flex-1 lg:w-1/2 p-6 overflow-y-auto ">
+            <div className="flex-1 lg:w-1/2 px-6 pt-2 overflow-y-auto ">
+              <div className="mb-2">
+                <div className="flex items-center">
+                  <button
+                    title="Sao chép link"
+                    onClick={handleCopyLink}
+                    className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all ${
+                      copySuccess
+                        ? "bg-green-100 text-green-700"
+                        : "bg-pink-100 text-pink-700 hover:bg-pink-200"
+                    }`}
+                  >
+                    <svg
+                      className="w-4 h-4"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"
+                      />
+                    </svg>
+                  </button>
+                  {blog.date && (
+                    <span className="text-sm ml-2">
+                      {formatDate(blog.date)}
+                    </span>
+                  )}
+                </div>
+
+                {blog.subTitle && (
+                  <span className="text-sm opacity-90 italic">
+                    {blog.subTitle}
+                  </span>
+                )}
+              </div>
               <div
                 className="prose prose-sm md:prose-base max-w-none text-gray-700 leading-relaxed mb-5"
                 dangerouslySetInnerHTML={{ __html: blog.content }}
