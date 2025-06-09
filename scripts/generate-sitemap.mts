@@ -112,12 +112,7 @@ ${blogPosts
 </urlset>`;
 
   // Tạo sitemap trong public folder
-  const publicSitemapPath = join(
-    __dirname,
-    "..",
-    "src/pages/stories",
-    "sitemap.xml"
-  );
+  const publicSitemapPath = join(__dirname, "..", "public/blog", "sitemap.xml");
 
   // Tạo || Ghi đè file
   writeFileSync(publicSitemapPath, sitemap);
