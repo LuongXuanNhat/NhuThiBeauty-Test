@@ -19,7 +19,6 @@ Disallow: /admin/
 Disallow: /dashboard/
 Disallow: /private/
 Disallow: /*.json$
-Disallow: /*.xml$
 
 # Chặn các file log và backup
 Disallow: /*.log
@@ -31,4 +30,4 @@ Disallow: /test/
 Disallow: /dev/
 Disallow: /staging/
 
-Sitemap: https://nhuthibeauty.com/sitemap.xml
+Sitemap: https://www.nhuthibeauty.com/sitemap.xml
