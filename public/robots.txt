@@ -10,6 +10,7 @@ Allow: /reviews
 Allow: /stories
 Allow: /promotions
 Allow: /about
+Allow: /sitemap.xml
 
 # Chặn truy cập các thư mục hệ thống và file nhạy cảm
 Disallow: /api/
@@ -19,7 +20,6 @@ Disallow: /dashboard/
 Disallow: /private/
 Disallow: /*.json$
 Disallow: /*.xml$
-Disallow: /sitemap.xml
 
 # Chặn các file log và backup
 Disallow: /*.log
