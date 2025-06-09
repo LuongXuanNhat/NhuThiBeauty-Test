@@ -27,7 +27,8 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "eslint/no-banned-words.mjs"
+    "eslint/no-banned-words.mjs",
+    "scripts/generate-sitemap.js"
   ],
   "exclude": ["node_modules"]
 }

@@ -1,3 +1,5 @@
+// @/utils/blogDataSource.ts
+
 import { Blog } from "@/model/blog";
 
 import blog1a from "@/assets/blogs/1/473708376_122132918660545409_9103638148811620984_n.jpg";
