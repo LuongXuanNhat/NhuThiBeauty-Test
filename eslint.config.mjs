@@ -3,7 +3,7 @@ import typescriptParser from "@typescript-eslint/parser";
 
 export default [
   {
-    ignores: ["src/config/metadataMap.ts"],
+    ignores: ["src/config/metadataMap.ts", "src/utils/blogDataSource.ts"],
   },
   {
     files: ["src/**/*.{js,ts,tsx}"],

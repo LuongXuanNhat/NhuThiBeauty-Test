@@ -118,6 +118,23 @@ const StoriesPage: React.FC = () => {
     };
   }, []);
 
+  // Hàm để xác định kích thước của blog card
+  const getBlogCardSize = (index: number) => {
+    // Tạo pattern cho mobile layout
+    const patterns = [
+      // Pattern 1: Large + Small
+      { isLarge: true, span: "col-span-2 row-span-2" },
+      { isLarge: false, span: "col-span-1 row-span-1" },
+      { isLarge: false, span: "col-span-1 row-span-1" },
+      // Pattern 2: Small + Large
+      { isLarge: false, span: "col-span-1 row-span-1" },
+      { isLarge: false, span: "col-span-1 row-span-1" },
+      { isLarge: true, span: "col-span-2 row-span-2" },
+    ];
+
+    return patterns[index % patterns.length];
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-pink-50 to-rose-50">
       {/* Header */}
@@ -137,7 +154,8 @@ const StoriesPage: React.FC = () => {
 
       {/* Blog Grid */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        {/* Desktop Grid - giữ nguyên */}
+        <div className="hidden sm:grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
           {currentBlogs.map((blog) => (
             <div
               key={blog.id}
@@ -183,6 +201,66 @@ const StoriesPage: React.FC = () => {
               )}
             </div>
           ))}
+        </div>
+
+        {/* Mobile Grid - layout mới giống TikTok/Instagram */}
+        <div className="block sm:hidden">
+          <div className="grid grid-cols-2 gap-2 auto-rows-[200px]">
+            {currentBlogs.map((blog, index) => {
+              const cardSize = getBlogCardSize(index);
+              return (
+                <div
+                  key={blog.id}
+                  className={`group relative bg-white rounded-lg shadow-md active:shadow-lg transition-all duration-300 cursor-pointer overflow-hidden ${cardSize.span}`}
+                  onClick={() => handleBlogClick(blog)}
+                >
+                  {/* Background Image or Gradient */}
+                  <div className="relative w-full h-full overflow-hidden">
+                    {blog.images && blog.images.length > 0 ? (
+                      <Image
+                        src={blog.images[0]}
+                        alt={blog.title}
+                        fill
+                        className="object-cover transition-transform duration-300 group-active:scale-105"
+                      />
+                    ) : (
+                      <div className="w-full h-full bg-gradient-to-br from-pink-400 via-rose-400 to-pink-500" />
+                    )}
+
+                    {/* Overlay */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
+
+                    {/* Content */}
+                    <div className="absolute bottom-0 left-0 right-0 p-3 text-white">
+                      <h3
+                        className={`font-semibold mb-1 line-clamp-2 ${
+                          cardSize.isLarge ? "text-base" : "text-sm"
+                        }`}
+                      >
+                        {blog.title}
+                      </h3>
+                      {blog.date && (
+                        <p className="text-xs text-gray-200">
+                          {formatDate(blog.date)}
+                        </p>
+                      )}
+                      {/* Hiển thị subtitle chỉ cho large cards */}
+                      {cardSize.isLarge && blog.subTitle && (
+                        <p className="text-xs text-gray-300 line-clamp-2 mt-1">
+                          {blog.subTitle}
+                        </p>
+                      )}
+                    </div>
+
+                    {/* Interaction indicator */}
+                    <div className="absolute top-2 right-2">
+                      <div className="w-2 h-2 bg-white/70 rounded-full"></div>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
         </div>
 
         {/* Pagination */}

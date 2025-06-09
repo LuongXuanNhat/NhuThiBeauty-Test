@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import { useRouter } from "next/router";
 import { Blog } from "@/model/blog";
 import { blogDataSource } from "@/utils/blogDataSource";
+import LoadingComponent from "@/components/loading";
 
 interface BlogWithStringDate extends Omit<Blog, "date"> {
   date: string | null;
@@ -209,7 +210,7 @@ const StoriesDynamicRoute = ({ blog, notFound }: StoriesDynamicRouteProps) => {
         {ogImage && <img src={ogImage} alt={blog.title} />}
       </div>
 
-      <div>Loading...</div>
+      <LoadingComponent />
     </>
   );
 };
