@@ -89,6 +89,12 @@ const ImageModal: React.FC<ImageModalProps> = ({
     setIsDragging(false);
   };
 
+  // Handle double click to reset zoom and position
+  const handleDoubleClick = () => {
+    setScale(1);
+    setPosition({ x: 0, y: 0 });
+  };
+
   // Handle escape key
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -116,13 +122,13 @@ const ImageModal: React.FC<ImageModalProps> = ({
       className="fixed inset-0 bg-black/60 flex items-center justify-center z-50 p-4"
       onClick={onClose}
     >
-      <div className="relative w-full h-full flex items-center justify-center">
+      <div className="relative max-w-full max-h-full flex items-center justify-center">
         {/* Close button */}
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 text-white text-base hover:text-gray-300 z-10 w-10 h-10 flex items-center justify-center rounded-full bg-black  hover:bg-opacity-70 transition-all"
+          className="absolute top-4 right-4 text-white text-base hover:text-gray-300 z-10 w-10 h-10 flex items-center justify-center rounded-full bg-black/60 hover:bg-opacity-70 transition-all"
         >
-          x
+          ×
         </button>
 
         {/* Instructions */}
@@ -132,12 +138,13 @@ const ImageModal: React.FC<ImageModalProps> = ({
 
         {/* Image container */}
         <div
-          className="relative overflow-hidden w-full h-full flex items-center justify-center"
+          className="relative overflow-hidden flex items-center justify-center"
           onWheel={handleWheel}
           onMouseDown={handleMouseDown}
           onMouseMove={handleMouseMove}
           onMouseUp={handleMouseUp}
           onMouseLeave={handleMouseUp}
+          onDoubleClick={handleDoubleClick}
           onClick={(e) => e.stopPropagation()}
           style={{
             cursor: scale > 1 ? (isDragging ? "grabbing" : "grab") : "zoom-in",
@@ -147,7 +154,7 @@ const ImageModal: React.FC<ImageModalProps> = ({
             ref={imageRef}
             src={imageUrl.src}
             alt="Review image"
-            className="max-w-full max-h-full object-contain transition-transform duration-100 select-none"
+            className="max-w-[90vw] max-h-[90vh] object-contain transition-transform duration-100 select-none"
             style={{
               transform: `scale(${scale}) translate(${position.x / scale}px, ${
                 position.y / scale

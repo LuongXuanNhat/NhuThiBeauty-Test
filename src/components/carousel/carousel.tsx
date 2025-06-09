@@ -35,7 +35,7 @@ const Carousel: React.FC<CarouselProps> = ({ images, height = 600 }) => {
         {images.map((img, index) => (
           <div
             key={index}
-            className={`absolute inset-0 transition-opacity duration-700 ${
+            className={` absolute inset-0 transition-opacity duration-700 ${
               index === current ? "opacity-100" : "opacity-0"
             }`}
           >
@@ -44,8 +44,7 @@ const Carousel: React.FC<CarouselProps> = ({ images, height = 600 }) => {
               alt={`Slide ${index + 1}`}
               fill
               quality={100}
-              className="object-cover"
-              sizes="max-width: 100vw"
+              className="object-cover max-w-[100vw] "
               priority={index === 0}
             />
           </div>

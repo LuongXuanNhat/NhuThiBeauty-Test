@@ -35,8 +35,8 @@ export default function About() {
     name: "Như Thị Beauty",
     address: "130 An Dương, Tây Hồ, Hà Nội",
     openHours: "8:30 AM - 9:30 PM",
-    yearsInBusiness: 3,
-    staffCount: "3-6",
+    yearsInBusiness: 6,
+    staffCount: "3-8",
     owner: {
       name: "Lương Thị Như",
       facebook: "https://www.facebook.com/NhuThiSpa",

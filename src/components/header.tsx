@@ -161,7 +161,7 @@ export default function Header() {
         </div>
 
         {/* Mobile Navigation */}
-        <div className="md:hidden flex items-center justify-between py-2">
+        <div className="md:hidden flex items-center justify-between py-1">
           {/* Logo */}
           <div className="flex-1"></div>
           <div className="flex justify-center flex-1">
@@ -169,7 +169,7 @@ export default function Header() {
               <Image
                 src={logo}
                 alt="Nhu Thi Beauty Logo"
-                className="w-12 h-12 p-1 rounded-full bg-white"
+                className="w-10 h-10 p-1 rounded-full bg-white"
                 priority
               />
             </Link>

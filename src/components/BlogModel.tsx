@@ -13,6 +13,7 @@ const BlogModal: React.FC<BlogModalProps> = ({ isOpen, blog, onClose }) => {
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
   const [isImageModalOpen, setIsImageModalOpen] = useState(false);
   const [copySuccess, setCopySuccess] = useState(false);
+  const [isImageSectionFixed, setIsImageSectionFixed] = useState(false);
 
   // Reset selected image when blog changes
   useEffect(() => {
@@ -103,12 +104,75 @@ const BlogModal: React.FC<BlogModalProps> = ({ isOpen, blog, onClose }) => {
     }
   };
 
+  // Toggle image section position on mobile
+  const toggleImageSection = () => {
+    setIsImageSectionFixed(!isImageSectionFixed);
+  };
+
   if (!isOpen) return null;
+
+  const ImageSection = () => (
+    <div className="flex-1 relative">
+      {/* Main Image */}
+      <div
+        className="relative h-64 md:h-80 lg:h-full w-full bg-gray-100 overflow-hidden cursor-pointer group"
+        onClick={handleImageClick}
+      >
+        <Image
+          src={blog.images![selectedImageIndex]}
+          alt={`${blog.title} - Image ${selectedImageIndex + 1}`}
+          fill
+          className="object-cover transition-transform duration-300 group-hover:scale-105"
+        />
+        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300 flex items-center justify-center">
+          <div className="bg-white/80 backdrop-blur-sm rounded-full p-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+            <svg
+              className="w-6 h-6 text-gray-700"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"
+              />
+            </svg>
+          </div>
+        </div>
+      </div>
+
+      {/* Thumbnail Navigation */}
+      {blog.images!.length > 1 && (
+        <div className="flex gap-2 p-2 overflow-x-auto absolute bottom-0 w-full">
+          {blog.images!.map((image, index) => (
+            <button
+              key={index}
+              onClick={() => setSelectedImageIndex(index)}
+              className={`flex-shrink-0 relative w-16 h-16 rounded-lg overflow-hidden border-2 transition-all ${
+                selectedImageIndex === index
+                  ? "border-pink-500"
+                  : "border-gray-200 hover:border-gray-300"
+              }`}
+            >
+              <Image
+                src={image}
+                alt={`Thumbnail ${index + 1}`}
+                fill
+                className="object-cover"
+              />
+            </button>
+          ))}
+        </div>
+      )}
+    </div>
+  );
 
   return (
     <>
       <div
-        className="fixed inset-0 bg-black/60 flex items-center justify-center z-40 p-4 "
+        className="fixed inset-0 bg-black/60 flex items-center justify-center z-40 p-4"
         onClick={onClose}
       >
         <div
@@ -125,15 +189,15 @@ const BlogModal: React.FC<BlogModalProps> = ({ isOpen, blog, onClose }) => {
               ×
             </button>
 
-            <h1 className="text-xl md:text-2xl font-bold pr-12 text-shadow-2xs">
+            <h1 className="text-base md:text-2xl font-bold pr-12 text-shadow-2xs">
               {blog.title}
             </h1>
           </div>
 
           {/* Content */}
-          <div className="flex flex-col lg:flex-row h-full max-h-[calc(90vh-180px)] min-h-96 overflow-hidden">
+          <div className="flex flex-col lg:flex-row h-full max-h-[calc(90vh-180px)] min-h-96 overflow-hidden relative">
             {/* Left Column - Content */}
-            <div className="flex-1 lg:w-1/2 px-6 pt-2 overflow-y-auto ">
+            <div className="flex-1 lg:w-1/2 px-6 pt-2 overflow-y-auto">
               <div className="mb-2">
                 <div className="flex items-center">
                   <button
@@ -176,71 +240,57 @@ const BlogModal: React.FC<BlogModalProps> = ({ isOpen, blog, onClose }) => {
                 className="prose prose-sm md:prose-base max-w-none text-gray-700 leading-relaxed mb-5"
                 dangerouslySetInnerHTML={{ __html: blog.content }}
               />
+
+              {/* Images at bottom on mobile when not fixed */}
+              {blog.images &&
+                blog.images.length > 0 &&
+                !isImageSectionFixed && (
+                  <div className="lg:hidden mt-6">
+                    <ImageSection />
+                  </div>
+                )}
             </div>
 
-            {/* Right Column - Images */}
+            {/* Right Column - Images (Desktop always visible + Mobile when fixed) */}
             {blog.images && blog.images.length > 0 && (
-              <div className="flex-1 lg:w-1/2  flex flex-col border-t lg:border-t-0 lg:border-l border-gray-200 relative">
-                {/* Main Image */}
-                <div className="flex-1 relative">
-                  <div
-                    className="relative h-64 md:h-80 lg:h-full w-full bg-gray-100  overflow-hidden cursor-pointer group"
-                    onClick={handleImageClick}
-                  >
-                    <Image
-                      src={blog.images[selectedImageIndex]}
-                      alt={`${blog.title} - Image ${selectedImageIndex + 1}`}
-                      fill
-                      className="object-cover transition-transform duration-300 group-hover:scale-105"
-                    />
-                    <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300 flex items-center justify-center">
-                      <div className="bg-white/80 backdrop-blur-sm rounded-full p-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                        <svg
-                          className="w-6 h-6 text-gray-700"
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"
-                          />
-                        </svg>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Thumbnail Navigation */}
-                  {blog.images.length > 1 && (
-                    <div className="flex gap-2 p-2 overflow-x-auto absolute bottom-0 w-full">
-                      {blog.images.map((image, index) => (
-                        <button
-                          key={index}
-                          onClick={() => setSelectedImageIndex(index)}
-                          className={`flex-shrink-0 relative w-16 h-16 rounded-lg overflow-hidden border-2 transition-all ${
-                            selectedImageIndex === index
-                              ? "border-pink-500"
-                              : "border-gray-200 hover:border-gray-300"
-                          }`}
-                        >
-                          <Image
-                            src={image}
-                            alt={`Thumbnail ${index + 1}`}
-                            fill
-                            className="object-cover"
-                          />
-                        </button>
-                      ))}
-                    </div>
-                  )}
+              <>
+                {/* Desktop version - always visible */}
+                <div className="hidden lg:flex flex-1 lg:w-1/2 flex-col border-t lg:border-t-0 lg:border-l border-gray-200 relative">
+                  <ImageSection />
                 </div>
-              </div>
+
+                {/* Mobile fixed version */}
+                {isImageSectionFixed && (
+                  <div className="lg:hidden flex-1 lg:w-1/2 flex flex-col border-t lg:border-t-0 lg:border-l border-gray-200 relative">
+                    <ImageSection />
+                  </div>
+                )}
+              </>
+            )}
+
+            {/* Floating Image Toggle Button (Mobile only) */}
+            {blog.images && blog.images.length > 0 && (
+              <button
+                onClick={toggleImageSection}
+                className="lg:hidden fixed bottom-6 right-6 z-50 bg-pink-500 hover:bg-pink-600 text-white p-3 rounded-full shadow-lg transition-all duration-300 transform hover:scale-110"
+                title={isImageSectionFixed ? "Ẩn hình ảnh" : "Hiện hình ảnh"}
+              >
+                <svg
+                  className="w-6 h-6"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
+                  />
+                </svg>
+              </button>
             )}
           </div>
-
-          {/* Footer - Actions */}
         </div>
       </div>
 
