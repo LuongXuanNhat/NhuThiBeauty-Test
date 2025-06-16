@@ -837,7 +837,6 @@ export const blogDataSource: Blog[] = [
     date: new Date("2025-03-22"),
     images: [],
   },
-  [
   {
     "id": 13,
     "title": "Serum vitamin C: Cách sử dụng để có hiệu quả tối đa",
