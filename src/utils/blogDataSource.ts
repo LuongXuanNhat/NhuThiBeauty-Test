@@ -1384,7 +1384,7 @@ export const blogDataSource: Blog[] = [
     "date": new Date("2025-04-09"),
     "images": []
   },
- {
+  {
     "id": 17,
     "title": "Routine chăm sóc da mặt buổi sáng cho làn da khỏe đẹp",
     "subTitle": "Bí quyết bắt đầu ngày mới với làn da tươi sáng và tràn đầy sức sống",
@@ -1591,5 +1591,5 @@ export const blogDataSource: Blog[] = [
     `,
     "date": new Date("2025-03-12"),
     "images": []
-  },
+  }
 ];
