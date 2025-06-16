@@ -557,4 +557,284 @@ export const blogDataSource: Blog[] = [
     date: new Date("2025-02-17"),
     images: [blog10a, blog10b],
   },
+   {
+    id: 11,
+    title: "Quy trình chăm sóc da mặt 10 bước cho làn da hoàn hảo",
+    subTitle: "Hướng dẫn chi tiết từ làm sạch đến dưỡng ẩm ban ngày và ban đêm",
+    content: `
+      <div class="prose prose-lg max-w-none">
+        <p class="text-gray-700 leading-relaxed mb-6">
+          Chăm sóc da mặt đúng cách không chỉ giúp duy trì vẻ đẹp tự nhiên mà còn ngăn ngừa các vấn đề da liễu về lâu dài. Một quy trình chăm sóc hoàn chỉnh gồm 10 bước cần thiết, mỗi bước đều có vai trò quan trọng trong việc nuôi dưỡng làn da khỏe mạnh từ bên trong.
+        </p>
+
+        <div class="bg-blue-50 border-2 border-blue-200 p-6 rounded-lg mb-6">
+          <h3 class="text-lg font-semibold text-blue-800 mb-4 flex items-center">
+            <span class="text-2xl mr-2">🌅</span>
+            Quy trình ban sáng (5 bước)
+          </h3>
+          <div class="space-y-3">
+            <div class="bg-white p-4 rounded-lg border-l-4 border-blue-400">
+              <div class="flex items-center mb-2">
+                <span class="bg-blue-500 text-white rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold mr-3">1</span>
+                <h4 class="font-semibold text-blue-700">Làm sạch nhẹ nhàng</h4>
+              </div>
+              <p class="text-blue-600 text-sm">Sử dụng sữa rửa mặt dịu nhẹ để loại bỏ dầu thừa và bụi bẩn tích tụ qua đêm</p>
+            </div>
+            <div class="bg-white p-4 rounded-lg border-l-4 border-green-400">
+              <div class="flex items-center mb-2">
+                <span class="bg-green-500 text-white rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold mr-3">2</span>
+                <h4 class="font-semibold text-green-700">Toner cân bằng pH</h4>
+              </div>
+              <p class="text-green-600 text-sm">Chuẩn bị da để hấp thụ các sản phẩm dưỡng tiếp theo hiệu quả hơn</p>
+            </div>
+            <div class="bg-white p-4 rounded-lg border-l-4 border-purple-400">
+              <div class="flex items-center mb-2">
+                <span class="bg-purple-500 text-white rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold mr-3">3</span>
+                <h4 class="font-semibold text-purple-700">Serum vitamin C</h4>
+              </div>
+              <p class="text-purple-600 text-sm">Chống oxy hóa và bảo vệ da khỏi tác hại của ánh nắng và ô nhiễm</p>
+            </div>
+            <div class="bg-white p-4 rounded-lg border-l-4 border-pink-400">
+              <div class="flex items-center mb-2">
+                <span class="bg-pink-500 text-white rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold mr-3">4</span>
+                <h4 class="font-semibold text-pink-700">Kem dưỡng ẩm</h4>
+              </div>
+              <p class="text-pink-600 text-sm">Khóa ẩm và tạo hàng rào bảo vệ cho da suốt cả ngày</p>
+            </div>
+            <div class="bg-white p-4 rounded-lg border-l-4 border-orange-400">
+              <div class="flex items-center mb-2">
+                <span class="bg-orange-500 text-white rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold mr-3">5</span>
+                <h4 class="font-semibold text-orange-700">Kem chống nắng SPF 30+</h4>
+              </div>
+              <p class="text-orange-600 text-sm">Bước quan trọng nhất để ngăn ngừa lão hóa và ung thư da</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-indigo-50 border-2 border-indigo-200 p-6 rounded-lg mb-6">
+          <h3 class="text-lg font-semibold text-indigo-800 mb-4 flex items-center">
+            <span class="text-2xl mr-2">🌙</span>
+            Quy trình ban tối (5 bước)
+          </h3>
+          <div class="space-y-3">
+            <div class="bg-white p-4 rounded-lg border-l-4 border-indigo-400">
+              <div class="flex items-center mb-2">
+                <span class="bg-indigo-500 text-white rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold mr-3">6</span>
+                <h4 class="font-semibold text-indigo-700">Tẩy trang kỹ lưỡng</h4>
+              </div>
+              <p class="text-indigo-600 text-sm">Loại bỏ hoàn toàn makeup, kem chống nắng và bụi bẩn</p>
+            </div>
+            <div class="bg-white p-4 rounded-lg border-l-4 border-teal-400">
+              <div class="flex items-center mb-2">
+                <span class="bg-teal-500 text-white rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold mr-3">7</span>
+                <h4 class="font-semibold text-teal-700">Sữa rửa mặt sâu</h4>
+              </div>
+              <p class="text-teal-600 text-sm">Làm sạch sâu lỗ chân lông và chuẩn bị cho các bước tiếp theo</p>
+            </div>
+            <div class="bg-white p-4 rounded-lg border-l-4 border-red-400">
+              <div class="flex items-center mb-2">
+                <span class="bg-red-500 text-white rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold mr-3">8</span>
+                <h4 class="font-semibold text-red-700">Toner phục hồi</h4>
+              </div>
+              <p class="text-red-600 text-sm">Cân bằng độ pH và bổ sung độ ẩm sau khi làm sạch</p>
+            </div>
+            <div class="bg-white p-4 rounded-lg border-l-4 border-amber-400">
+              <div class="flex items-center mb-2">
+                <span class="bg-amber-500 text-white rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold mr-3">9</span>
+                <h4 class="font-semibold text-amber-700">Serum tái tạo</h4>
+              </div>
+              <p class="text-amber-600 text-sm">Retinol, niacinamide hoặc acid hyaluronic để phục hồi da qua đêm</p>
+            </div>
+            <div class="bg-white p-4 rounded-lg border-l-4 border-emerald-400">
+              <div class="flex items-center mb-2">
+                <span class="bg-emerald-500 text-white rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold mr-3">10</span>
+                <h4 class="font-semibold text-emerald-700">Kem dưỡng đêm</h4>
+              </div>
+              <p class="text-emerald-600 text-sm">Nuôi dưỡng và phục hồi da trong lúc ngủ</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-yellow-50 border-l-4 border-yellow-400 p-6 mb-6">
+          <h3 class="text-lg font-semibold text-yellow-800 mb-3 flex items-center">
+            <span class="text-2xl mr-2">⚠️</span>
+            Lưu ý quan trọng
+          </h3>
+          <ul class="text-yellow-700 space-y-2">
+            <li class="flex items-start">
+              <span class="text-yellow-500 mr-2">•</span>
+              Thời gian chờ giữa các bước: 1-2 phút để sản phẩm thấm hoàn toàn
+            </li>
+            <li class="flex items-start">
+              <span class="text-yellow-500 mr-2">•</span>
+              Sử dụng sản phẩm phù hợp với loại da (khô, dầu, hỗn hợp, nhạy cảm)
+            </li>
+            <li class="flex items-start">
+              <span class="text-yellow-500 mr-2">•</span>
+              Kiên trì thực hiện đều đặn để thấy kết quả rõ rệt sau 4-6 tuần
+            </li>
+          </ul>
+        </div>
+
+        <div class="bg-gradient-to-r from-rose-100 to-pink-100 p-6 rounded-lg">
+          <p class="text-rose-800 font-medium text-center">
+            Một quy trình chăm sóc da hoàn chỉnh không chỉ mang lại làn da đẹp mà còn là thời gian thư giãn quý báu trong ngày. Hãy kiên trì và yêu thương bản thân qua từng bước nhỏ này.
+          </p>
+        </div>
+      </div>
+    `,
+    date: new Date("2025-03-15"),
+    images: [],
+  },
+  {
+    id: 12,
+    title: "Cách chọn kem chống nắng phù hợp cho từng loại da",
+    subTitle: "Hướng dẫn chi tiết về SPF, PA+ và thành phần để bảo vệ da tối ưu",
+    content: `
+      <div class="prose prose-lg max-w-none">
+        <p class="text-gray-700 leading-relaxed mb-6">
+          Kem chống nắng là sản phẩm quan trọng nhất trong quy trình chăm sóc da, giúp ngăn ngừa 80% dấu hiệu lão hóa da. Tuy nhiên, việc chọn đúng sản phẩm phù hợp với loại da và nhu cầu sử dụng không phải ai cũng biết. Cùng tìm hiểu cách lựa chọn kem chống nắng hoàn hảo cho làn da của bạn.
+        </p>
+
+        <div class="bg-orange-50 border-2 border-orange-200 p-6 rounded-lg mb-6">
+          <h3 class="text-lg font-semibold text-orange-800 mb-4 flex items-center">
+            <span class="text-2xl mr-2">☀️</span>
+            Hiểu về chỉ số SPF và PA+
+          </h3>
+          <div class="grid md:grid-cols-2 gap-4">
+            <div class="bg-white p-4 rounded-lg border-l-4 border-orange-400">
+              <h4 class="font-semibold text-orange-700 mb-2">Chỉ số SPF</h4>
+              <div class="space-y-2 text-orange-600 text-sm">
+                <p><strong>SPF 15:</strong> Chặn 93% tia UVB</p>
+                <p><strong>SPF 30:</strong> Chặn 97% tia UVB</p>
+                <p><strong>SPF 50:</strong> Chặn 98% tia UVB</p>
+                <p class="bg-orange-100 p-2 rounded">Khuyến nghị: SPF 30+ cho sử dụng hàng ngày</p>
+              </div>
+            </div>
+            <div class="bg-white p-4 rounded-lg border-l-4 border-red-400">
+              <h4 class="font-semibold text-red-700 mb-2">Chỉ số PA+</h4>
+              <div class="space-y-2 text-red-600 text-sm">
+                <p><strong>PA+:</strong> Bảo vệ cơ bản khỏi UVA</p>
+                <p><strong>PA++:</strong> Bảo vệ trung bình</p>
+                <p><strong>PA+++:</strong> Bảo vệ cao</p>
+                <p class="bg-red-100 p-2 rounded">Khuyến nghị: PA++ trở lên</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-blue-50 p-6 rounded-lg mb-6">
+          <h3 class="text-lg font-semibold text-blue-800 mb-4">Lựa chọn theo loại da</h3>
+          <div class="space-y-4">
+            <div class="bg-white p-4 rounded-lg border-l-4 border-blue-400">
+              <h4 class="font-semibold text-blue-700 mb-2 flex items-center">
+                <span class="text-xl mr-2">💧</span>
+                Da khô
+              </h4>
+              <p class="text-blue-600 text-sm mb-2">Chọn kem chống nắng dạng cream có tính năng dưỡng ẩm cao</p>
+              <div class="bg-blue-50 p-3 rounded">
+                <p class="text-blue-700 text-xs"><strong>Thành phần nên có:</strong> Hyaluronic acid, Glycerin, Ceramide</p>
+              </div>
+            </div>
+            <div class="bg-white p-4 rounded-lg border-l-4 border-green-400">
+              <h4 class="font-semibold text-green-700 mb-2 flex items-center">
+                <span class="text-xl mr-2">🌿</span>
+                Da dầu
+              </h4>
+              <p class="text-green-600 text-sm mb-2">Ưu tiên sản phẩm oil-free, không gây bít tắc lỗ chân lông</p>
+              <div class="bg-green-50 p-3 rounded">
+                <p class="text-green-700 text-xs"><strong>Thành phần nên có:</strong> Zinc oxide, Niacinamide, Silica</p>
+              </div>
+            </div>
+            <div class="bg-white p-4 rounded-lg border-l-4 border-purple-400">
+              <h4 class="font-semibold text-purple-700 mb-2 flex items-center">
+                <span class="text-xl mr-2">🌸</span>
+                Da nhạy cảm
+              </h4>
+              <p class="text-purple-600 text-sm mb-2">Chọn kem chống nắng mineral, không chứa hương liệu và cồn</p>
+              <div class="bg-purple-50 p-3 rounded">
+                <p class="text-purple-700 text-xs"><strong>Thành phần nên có:</strong> Zinc oxide, Titanium dioxide</p>
+              </div>
+            </div>
+            <div class="bg-white p-4 rounded-lg border-l-4 border-pink-400">
+              <h4 class="font-semibold text-pink-700 mb-2 flex items-center">
+                <span class="text-xl mr-2">⚖️</span>
+                Da hỗn hợp
+              </h4>
+              <p class="text-pink-600 text-sm mb-2">Sản phẩm cân bằng, không quá khô hay quá dầu</p>
+              <div class="bg-pink-50 p-3 rounded">
+                <p class="text-pink-700 text-xs"><strong>Thành phần nên có:</strong> Hyaluronic acid, Niacinamide</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-teal-50 border-2 border-teal-200 p-6 rounded-lg mb-6">
+          <h3 class="text-lg font-semibold text-teal-800 mb-4 flex items-center">
+            <span class="text-2xl mr-2">🧪</span>
+            Phân loại theo công thức
+          </h3>
+          <div class="grid md:grid-cols-2 gap-4">
+            <div class="bg-white p-4 rounded-lg">
+              <h4 class="font-semibold text-teal-700 mb-2">Kem chống nắng hóa học</h4>
+              <ul class="text-teal-600 text-sm space-y-1">
+                <li>• Thấm nhanh, không để lại vệt trắng</li>
+                <li>• Phù hợp da thường, da dầu</li>
+                <li>• Cần thời gian 15-30 phút để phát huy tác dụng</li>
+              </ul>
+            </div>
+            <div class="bg-white p-4 rounded-lg">
+              <h4 class="font-semibold text-teal-700 mb-2">Kem chống nắng vật lý</h4>
+              <ul class="text-teal-600 text-sm space-y-1">
+                <li>• An toàn cho da nhạy cảm</li>
+                <li>• Có thể để lại vệt trắng nhẹ</li>
+                <li>• Có tác dụng ngay sau khi thoa</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-amber-50 border-l-4 border-amber-400 p-6 mb-6">
+          <h3 class="text-lg font-semibold text-amber-800 mb-3 flex items-center">
+            <span class="text-2xl mr-2">💡</span>
+            Cách sử dụng hiệu quả
+          </h3>
+          <div class="space-y-3">
+            <p class="text-amber-700"><strong>Lượng sử dụng:</strong> 1/4 thìa cà phê cho cả mặt và cổ</p>
+            <p class="text-amber-700"><strong>Thời gian thoa:</strong> 15-30 phút trước khi ra ngoài</p>
+            <p class="text-amber-700"><strong>Tần suất:</strong> Thoa lại mỗi 2 giờ hoặc sau khi đổ mồ hôi nhiều</p>
+          </div>
+        </div>
+
+        <div class="bg-red-50 border-2 border-red-200 p-6 rounded-lg mb-6">
+          <h3 class="text-lg font-semibold text-red-800 mb-3 flex items-center">
+            <span class="text-2xl mr-2">⚠️</span>
+            Những sai lầm thường gặp
+          </h3>
+          <ul class="text-red-700 space-y-2">
+            <li class="flex items-start">
+              <span class="text-red-500 mr-2">•</span>
+              Chỉ thoa kem chống nắng khi ra ngoài trời
+            </li>
+            <li class="flex items-start">
+              <span class="text-red-500 mr-2">•</span>
+              Sử dụng quá ít sản phẩm, giảm hiệu quả bảo vệ
+            </li>
+            <li class="flex items-start">
+              <span class="text-red-500 mr-2">•</span>
+              Quên thoa lại sau vài giờ sử dụng
+            </li>
+          </ul>
+        </div>
+
+        <div class="bg-gradient-to-r from-orange-100 to-red-100 p-6 rounded-lg">
+          <p class="text-red-800 font-medium text-center">
+            Kem chống nắng chất lượng tốt không chỉ bảo vệ da khỏi tác hại của tia UV mà còn giúp duy trì làn da trẻ trung, khỏe mạnh theo thời gian. Đầu tư cho một sản phẩm phù hợp là đầu tư cho vẻ đẹp lâu dài.
+          </p>
+        </div>
+      </div>
+    `,
+    date: new Date("2025-03-22"),
+    images: [],
+  },
 ];
