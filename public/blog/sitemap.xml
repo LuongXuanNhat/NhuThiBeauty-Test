@@ -2,6 +2,54 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <!-- Blog posts -->
   <url>
+    <loc>https://www.nhuthibeauty.com/stories/16/duong-toc-bang-dau-dua-bi-quyet-cho-mai-toc-khoe-manh</loc>
+    <lastmod>2025-04-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.nhuthibeauty.com/stories/15/cham-soc-da-vung-mat-ngan-ngua-nep-nhan-va-quang-tham</loc>
+    <lastmod>2025-04-02</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.nhuthibeauty.com/stories/14/dieu-tri-mun-hieu-qua-tu-nguyen-nhan-den-giai-phap</loc>
+    <lastmod>2025-03-26</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.nhuthibeauty.com/stories/12/cach-chon-kem-chong-nang-phu-hop-cho-tung-loai-da</loc>
+    <lastmod>2025-03-22</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.nhuthibeauty.com/stories/13/serum-vitamin-c-cach-su-dung-de-co-hieu-qua-toi-da</loc>
+    <lastmod>2025-03-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.nhuthibeauty.com/stories/11/quy-trinh-cham-soc-da-mat-10-buoc-cho-lan-da-hoan-hao</loc>
+    <lastmod>2025-03-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.nhuthibeauty.com/stories/18/cach-chon-kem-chong-nang-phu-hop-voi-tung-loai-da</loc>
+    <lastmod>2025-03-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.nhuthibeauty.com/stories/17/routine-cham-soc-da-mat-buoi-sang-cho-lan-da-khoe-dep</loc>
+    <lastmod>2025-03-05</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://www.nhuthibeauty.com/stories/10/bi-quyet-cham-soc-da-body-trang-hong-tu-nhien-tai-nha</loc>
     <lastmod>2025-02-17</lastmod>
     <changefreq>weekly</changefreq>

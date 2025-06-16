@@ -27,6 +27,14 @@ import acne_a3 from "@/assets/carousel/services/acne_treatment/mun3.jpg";
 import banner0625a1 from "@/assets/carousel/banners/banner_06_2025/banner0.png";
 import banner0625a2 from "@/assets/carousel/banners/banner_06_2025/banner1.png";
 import banner0625a3 from "@/assets/carousel/banners/banner_06_2025/banner3.png";
+
+import hair_removal_01 from "@/assets/carousel/services/hair_removal/TL_00.jpg";
+import hair_removal_02 from "@/assets/carousel/services/hair_removal/TL_001.jpg";
+import hair_removal_03 from "@/assets/carousel/services/hair_removal/TL_01.jpg";
+
+import peel_01 from "@/assets/carousel/services/peel_da/PD_01.jpg";
+import peel_02 from "@/assets/carousel/services/peel_da/PD_02.jpg";
+
 export const CarouselFirst = [item1, item2, item3];
 export const Carousel_06_2025 = [banner0625a1, banner0625a2, banner0625a3];
 
@@ -34,3 +42,9 @@ export const CarouselServiceNail = [nail1, nail2, nail3, nail4];
 export const CarouselServiceEyelash = [mi1, mi2, mi3];
 export const CarouselServiceAcneTreatment = [acne_a1, acne_a2, acne_a3];
 export const CarouselServiceHeadWashing = [head_washing1, head_washing2];
+export const CarouselServiceHairRemoval = [
+  hair_removal_01,
+  hair_removal_02,
+  hair_removal_03,
+];
+export const CarouselServicePeel = [peel_01, peel_02];

@@ -6,10 +6,15 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 
 interface CarouselProps {
   images: StaticImageData[];
-  height?: number | string; // Thêm prop height có thể là số hoặc chuỗi
+  height?: number | string;
+  objFit?: string;
 }
 
-const Carousel: React.FC<CarouselProps> = ({ images, height = 600 }) => {
+const Carousel: React.FC<CarouselProps> = ({
+  images,
+  height = 600,
+  objFit = "object-cover",
+}) => {
   const [current, setCurrent] = useState(0);
   const length = images.length;
 
@@ -44,7 +49,7 @@ const Carousel: React.FC<CarouselProps> = ({ images, height = 600 }) => {
               alt={`Slide ${index + 1}`}
               fill
               quality={100}
-              className="object-cover max-w-[100vw] "
+              className={`${objFit} max-w-[100vw]`}
               priority={index === 0}
             />
           </div>

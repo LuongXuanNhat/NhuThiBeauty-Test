@@ -557,7 +557,7 @@ export const blogDataSource: Blog[] = [
     date: new Date("2025-02-17"),
     images: [blog10a, blog10b],
   },
-   {
+  {
     id: 11,
     title: "Quy trình chăm sóc da mặt 10 bước cho làn da hoàn hảo",
     subTitle: "Hướng dẫn chi tiết từ làm sạch đến dưỡng ẩm ban ngày và ban đêm",
@@ -689,7 +689,8 @@ export const blogDataSource: Blog[] = [
   {
     id: 12,
     title: "Cách chọn kem chống nắng phù hợp cho từng loại da",
-    subTitle: "Hướng dẫn chi tiết về SPF, PA+ và thành phần để bảo vệ da tối ưu",
+    subTitle:
+      "Hướng dẫn chi tiết về SPF, PA+ và thành phần để bảo vệ da tối ưu",
     content: `
       <div class="prose prose-lg max-w-none">
         <p class="text-gray-700 leading-relaxed mb-6">
@@ -838,10 +839,11 @@ export const blogDataSource: Blog[] = [
     images: [],
   },
   {
-    "id": 13,
-    "title": "Serum vitamin C: Cách sử dụng để có hiệu quả tối đa",
-    "subTitle": "Bí quyết sử dụng vitamin C đúng cách để làm sáng da và chống lão hóa hiệu quả",
-    "content": `
+    id: 13,
+    title: "Serum vitamin C: Cách sử dụng để có hiệu quả tối đa",
+    subTitle:
+      "Bí quyết sử dụng vitamin C đúng cách để làm sáng da và chống lão hóa hiệu quả",
+    content: `
       <div class="prose prose-lg max-w-none">
         <p class="text-gray-700 leading-relaxed mb-6">
           Vitamin C được mệnh danh là "thần dược" trong ngành skincare nhờ khả năng chống oxy hóa mạnh mẽ và làm sáng da hiệu quả. Tuy nhiên, để tận dụng tối đa lợi ích của vitamin C, bạn cần biết cách lựa chọn và sử dụng đúng cách.
@@ -949,14 +951,14 @@ export const blogDataSource: Blog[] = [
         </div>
       </div>
     `,
-    "date": new Date("2025-03-19"),
-    "images": []
+    date: new Date("2025-03-19"),
+    images: [],
   },
   {
-    "id": 14,
-    "title": "Điều trị mụn hiệu quả: Từ nguyên nhân đến giải pháp",
-    "subTitle": "Hướng dẫn toàn diện để hiểu và điều trị mụn một cách khoa học",
-    "content": `
+    id: 14,
+    title: "Điều trị mụn hiệu quả: Từ nguyên nhân đến giải pháp",
+    subTitle: "Hướng dẫn toàn diện để hiểu và điều trị mụn một cách khoa học",
+    content: `
       <div class="prose prose-lg max-w-none">
         <p class="text-gray-700 leading-relaxed mb-6">
           Mụn là vấn đề da phổ biến nhất, ảnh hưởng đến hàng triệu người trên thế giới. Hiểu rõ nguyên nhân và áp dụng phương pháp điều trị đúng cách sẽ giúp bạn có được làn da sạch mụn, khỏe mạnh một cách bền vững.
@@ -1069,14 +1071,14 @@ export const blogDataSource: Blog[] = [
         </div>
       </div>
     `,
-    "date": new Date("2025-03-26"),
-    "images": []
+    date: new Date("2025-03-26"),
+    images: [],
   },
   {
-    "id": 15,
-    "title": "Chăm sóc da vùng mắt: Ngăn ngừa nếp nhăn và quầng thâm",
-    "subTitle": "Bí quyết giữ đôi mắt luôn tươi trẻ và rạng rỡ",
-    "content": `
+    id: 15,
+    title: "Chăm sóc da vùng mắt: Ngăn ngừa nếp nhăn và quầng thâm",
+    subTitle: "Bí quyết giữ đôi mắt luôn tươi trẻ và rạng rỡ",
+    content: `
       <div class="prose prose-lg max-w-none">
         <p class="text-gray-700 leading-relaxed mb-6">
           Vùng da quanh mắt là nơi mỏng manh và nhạy cảm nhất trên khuôn mặt, dễ bị tổn thương và lão hóa sớm. Chăm sóc đúng cách từ sớm sẽ giúp bạn duy trì đôi mắt tươi trẻ và ngăn ngừa các dấu hiệu lão hóa hiệu quả.
@@ -1225,14 +1227,15 @@ export const blogDataSource: Blog[] = [
         </div>
       </div>
     `,
-    "date": new Date("2025-04-02"),
-    "images": []
+    date: new Date("2025-04-02"),
+    images: [],
   },
   {
-    "id": 16,
-    "title": "Dưỡng tóc bằng dầu dừa: Bí quyết cho mái tóc khỏe mạnh",
-    "subTitle": "Tận dụng công dụng tuyệt vời của dầu dừa để phục hồi và nuôi dưỡng tóc",
-    "content": `
+    id: 16,
+    title: "Dưỡng tóc bằng dầu dừa: Bí quyết cho mái tóc khỏe mạnh",
+    subTitle:
+      "Tận dụng công dụng tuyệt vời của dầu dừa để phục hồi và nuôi dưỡng tóc",
+    content: `
       <div class="prose prose-lg max-w-none">
         <p class="text-gray-700 leading-relaxed mb-6">
           Dầu dừa được mệnh danh là "vàng trắng" trong làng chăm sóc tóc nhờ khả năng thấm sâu vào thân tóc và cung cấp dưỡng chất thiết yếu. Với thành phần tự nhiên 100%, dầu dừa là lựa chọn hoàn hảo cho mọi loại tóc, đặc biệt là tóc hư tổn và khô xơ.
@@ -1380,14 +1383,15 @@ export const blogDataSource: Blog[] = [
         </div>
       </div>
     `,
-    "date": new Date("2025-04-09"),
-    "images": []
+    date: new Date("2025-04-09"),
+    images: [],
   },
   {
-    "id": 17,
-    "title": "Routine chăm sóc da mặt buổi sáng cho làn da khỏe đẹp",
-    "subTitle": "Bí quyết bắt đầu ngày mới với làn da tươi sáng và tràn đầy sức sống",
-    "content": `
+    id: 17,
+    title: "Routine chăm sóc da mặt buổi sáng cho làn da khỏe đẹp",
+    subTitle:
+      "Bí quyết bắt đầu ngày mới với làn da tươi sáng và tràn đầy sức sống",
+    content: `
       <div class="prose prose-lg max-w-none">
         <p class="text-gray-700 leading-relaxed mb-6">
           Một routine chăm sóc da buổi sáng đúng cách không chỉ giúp làn da trở nên tươi sáng mà còn tạo nền tảng vững chắc cho làn da khỏe mạnh suốt cả ngày. Việc thực hiện những bước chăm sóc cơ bản nhưng hiệu quả sẽ giúp da bạn luôn trong trạng thái tốt nhất.
@@ -1479,14 +1483,15 @@ export const blogDataSource: Blog[] = [
         </div>
       </div>
     `,
-    "date": new Date("2025-03-05"),
-    "images": []
+    date: new Date("2025-03-05"),
+    images: [],
   },
   {
-    "id": 18,
-    "title": "Cách chọn kem chống nắng phù hợp với từng loại da",
-    "subTitle": "Hướng dẫn chi tiết để tìm được sản phẩm chống nắng hoàn hảo cho làn da của bạn",
-    "content": `
+    id: 18,
+    title: "Cách chọn kem chống nắng phù hợp với từng loại da",
+    subTitle:
+      "Hướng dẫn chi tiết để tìm được sản phẩm chống nắng hoàn hảo cho làn da của bạn",
+    content: `
       <div class="prose prose-lg max-w-none">
         <p class="text-gray-700 leading-relaxed mb-6">
           Kem chống nắng là bước quan trọng nhất trong routine chăm sóc da, nhưng không phải ai cũng biết cách chọn sản phẩm phù hợp với loại da của mình. Việc lựa chọn đúng không chỉ bảo vệ da khỏi tia UV mà còn giúp da khỏe mạnh và không gây kích ứng.
@@ -1588,7 +1593,7 @@ export const blogDataSource: Blog[] = [
         </div>
       </div>
     `,
-    "date": new Date("2025-03-12"),
-    "images": []
-  }
+    date: new Date("2025-03-12"),
+    images: [],
+  },
 ];

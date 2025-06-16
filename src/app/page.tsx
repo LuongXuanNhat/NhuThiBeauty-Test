@@ -29,7 +29,7 @@ export const metadata: Metadata = {
 export default function Home() {
   return (
     <div className="">
-      <Carousel images={Carousel_06_2025} />
+      <Carousel images={Carousel_06_2025} objFit="object-contain" />
 
       {/* Service | Dịch vụ  */}
       <Service isActive={false} />
