@@ -13,19 +13,23 @@ import {
 } from "@/hooks/useDynamicMetadata";
 import ImageModal from "@/components/ImageModel";
 import { Metadata } from "next";
+import ReviewModel from "@/components/ReviewModel";
 
 // Component Card Review đơn lẻ
 interface ReviewCardProps {
   review: Review;
+  onReviewClick: (review: Review) => void;
 }
 
 export const metadata: Metadata = getMetadataByPath("/reviews");
 
-const ReviewCard: React.FC<ReviewCardProps> = ({ review }) => {
+const ReviewCard: React.FC<ReviewCardProps> = ({ review, onReviewClick }) => {
   useDynamicMetadata();
+
   const [selectedImage, setSelectedImage] = useState<StaticImageData | null>(
     null
   );
+  
   useEffect(() => {
     if (review && review.images && review.images.length > 0) {
       setSelectedImage(review.images[0]);
@@ -59,9 +63,8 @@ const ReviewCard: React.FC<ReviewCardProps> = ({ review }) => {
     setIsModalOpen(false);
   };
 
-  // Chọn ảnh đầu tiên làm ảnh mặc định nếu có
   const displayImage = selectedImage || (review.images && review.images[0]);
-
+  
   return (
     <>
       <div className="bg-white rounded-lg shadow-lg overflow-hidden w-full mx-auto">
@@ -82,8 +85,11 @@ const ReviewCard: React.FC<ReviewCardProps> = ({ review }) => {
         </div>
 
         {/* Date */}
-        <div className="px-4 pb-3">
-          <p className="text-xs text-gray-500">{formatDate(review.date)}</p>
+        <div className="px-4 pb-3 flex justify-between text-xs items-center">
+          <p className=" text-gray-500">{formatDate(review.date)}</p>
+          <button onClick={() => onReviewClick(review)} className="bg-green-50 text-shadow-2xs rounded-xl py-1 px-2 text-green-700 shadow">
+          xem riêng
+        </button>
         </div>
 
         {/* Content */}
@@ -163,7 +169,9 @@ const ReviewsPage: React.FC<ReviewsPageProps> = ({
 }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(12);
-
+  const [selectedReview, setSelectedReview] = useState<Review | null>(null);
+  const [isReviewModalOpen, setIsReviewModalOpen] = useState(false);
+  
   // Sắp xếp reviews theo date mới nhất
   const sortedReviews = [...reviewDataSource].sort((a, b) => {
     if (!a.date && !b.date) return 0;
@@ -195,6 +203,63 @@ const ReviewsPage: React.FC<ReviewsPageProps> = ({
     setCurrentPage(1); // Reset về trang đầu tiên
   };
 
+  useEffect(() => {
+  const handleInitialRoute = () => {
+    const currentPath = window.location.pathname;
+    const pathParts = currentPath.split("/");
+
+    if (pathParts.length >= 3 && pathParts[1] === "reviews" && pathParts[2]) {
+      const blogId = parseInt(pathParts[2]);
+      const blog = reviewDataSource.find((b) => b.id === blogId);
+      if (blog) {
+        setSelectedReview(blog);
+        setIsReviewModalOpen(true);
+      }
+    }
+  };
+
+  const handlePopState = () => {
+    const currentPath = window.location.pathname;
+    if (currentPath === "/reviews") {
+      setIsReviewModalOpen(false);
+      setSelectedReview(null);
+    } else {
+      handleInitialRoute();
+    }
+  };
+
+  handleInitialRoute();
+  window.addEventListener("popstate", handlePopState);
+
+  return () => {
+    window.removeEventListener("popstate", handlePopState);
+  };
+  }, []);
+
+      const createSlug = (title: string): string => {
+    return title
+      .toLowerCase()
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "") // Bỏ dấu tiếng Việt
+      .replace(/[đĐ]/g, "d") // Chuyển đ thành d
+      .replace(/[^a-z0-9\s-]/g, "") // Chỉ giữ lại chữ cái, số, khoảng trắng và dấu gạch ngang
+      .replace(/\s+/g, "-") // Chuyển khoảng trắng thành dấu gạch ngang
+      .replace(/-+/g, "-") // Loại bỏ nhiều dấu gạch ngang liên tiếp
+      .trim();
+  };
+  const handleReviewClick = (review: Review) => {
+  const slug = createSlug(review.name);
+  setSelectedReview(review);
+  setIsReviewModalOpen(true);
+  window.history.pushState({}, "", `/reviews/${review.id}/${slug}`);
+};
+
+const handleCloseModal = () => {
+  setIsReviewModalOpen(false);
+  setSelectedReview(null);
+  window.history.pushState({}, "", "/reviews");
+  };
+  
   return (
     <div className="min-h-screen bg-gray-50 py-8">
       <div className="container mx-auto px-4">
@@ -221,6 +286,7 @@ const ReviewsPage: React.FC<ReviewsPageProps> = ({
                     <ReviewCard
                       key={`${startIndex + groupIndex * 3 + index}`}
                       review={review}
+                      onReviewClick={handleReviewClick} 
                     />
                   ))}
                 </div>
@@ -244,6 +310,14 @@ const ReviewsPage: React.FC<ReviewsPageProps> = ({
           </div>
         )}
       </div>
+       {/* Review Modal */}
+{selectedReview && (
+  <ReviewModel
+    isOpen={isReviewModalOpen}
+    review={selectedReview}
+    onClose={handleCloseModal}
+  />
+)}
     </div>
   );
 };

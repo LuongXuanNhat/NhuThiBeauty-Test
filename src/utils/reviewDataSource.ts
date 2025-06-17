@@ -13,13 +13,15 @@ import ngocYenImg2 from "@/assets/reviews/byMay2025/2_Ngoc_Yen/z6596585500739_a8
 
 export const reviewDataSource: Review[] = [
   {
+    id: 1,
     name: "Huyền",
     avatar: huyenAvatar,
     content: "Dịch vụ tốt, nhân viên thân thiện và rất chuyên nghiệp!",
     date: new Date("2024-11-12"),
     images: [huyenImg1, huyenImg2, huyenImg3],
   },
-  {
+  { 
+    id: 2,
     name: "Tuyen Luong",
     avatar: tuyenAvatar,
     content: "Tôi rất hài lòng sau khi sử dụng dịch vụ chăm sóc da ở đây.",
@@ -27,6 +29,7 @@ export const reviewDataSource: Review[] = [
     images: [tuyenImg1],
   },
   {
+    id: 3,
     name: "Ngọc Yến",
     avatar: null,
     content: "Không gian spa rất sạch sẽ và dễ chịu. Sẽ quay lại lần sau!",

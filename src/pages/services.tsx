@@ -159,8 +159,8 @@ const ServicePopup: React.FC<ServicePopupProps> = ({
             onClick={(e) => e.stopPropagation()}
           >
             {/* Header */}
-            <div className="flex justify-between items-center p-6 border-b bg-gradient-to-r from-pink-50 to-rose-50">
-              <h2 className="text-2xl font-bold text-gray-800">
+            <div className="flex justify-between items-center px-6 py-4 bg-gradient-to-r shadow-md ">
+              <h2 className="text-xl md:text-2xl font-bold text-gray-800 text-shadow-2xs">
                 {currentService.title}
               </h2>
               <button

@@ -182,8 +182,10 @@ export const defaultMetadata: Metadata = {
     "Như Thị Spa",
     "spa làm đẹp",
     "chăm sóc da",
-    "massage",
+    "gội đầu",
     "Beauty spa",
+    "Như Thị",
+    "Nhu Thi"
   ],
   icons: logo.src,
   authors: [{ name: "Như Thị Beauty" }],
