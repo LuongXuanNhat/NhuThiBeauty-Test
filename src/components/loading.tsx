@@ -7,7 +7,7 @@ const LoadingComponent: React.FC = () => {
     <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-pink-100 via-purple-100 to-blue-100">
       <div className="text-center">
         <div className="flex justify-center mb-4">
-          <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-pink-500"></div>
+          <div className="loader"></div>
         </div>
         <h2 className="text-2xl text-gray-700 animate-pulse">
           Đang tải nội dung...
