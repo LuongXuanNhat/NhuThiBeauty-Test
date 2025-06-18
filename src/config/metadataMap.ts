@@ -1,6 +1,6 @@
 // app/config/metadataMap.ts
 import type { Metadata } from "next";
-import logo from "@/assets/logo/logo.png";
+const logo = '/logo.png';
 
 export const metadataMap: Record<string, Metadata> = {
   "/": {
@@ -16,7 +16,7 @@ export const metadataMap: Record<string, Metadata> = {
       "spa chăm sóc da",
       "massage Như Thị",
     ],
-    icons: logo.src,
+    icons: logo,
     openGraph: {
       title: "Như Thị Beauty - Spa Làm Đẹp Chuyên Nghiệp",
       description:
@@ -39,7 +39,7 @@ export const metadataMap: Record<string, Metadata> = {
       "trị liệu spa Như Thị",
       "Beauty spa services",
     ],
-    icons: logo.src,
+    icons: logo,
     openGraph: {
       title: "Dịch Vụ Spa - Như Thị Beauty",
       description:
@@ -59,7 +59,7 @@ export const metadataMap: Record<string, Metadata> = {
       "mỹ phẩm spa Như Thị",
       "skincare Như Thị Beauty",
     ],
-    icons: logo.src,
+    icons: logo,
     openGraph: {
       title: "Sản Phẩm Làm Đẹp - Như Thị Beauty",
       description:
@@ -79,7 +79,7 @@ export const metadataMap: Record<string, Metadata> = {
       "bài viết làm đẹp",
       "chăm sóc da blog",
     ],
-    icons: logo.src,
+    icons: logo,
     openGraph: {
       title: "Blog Làm Đẹp - Như Thị Beauty",
       description:
@@ -99,7 +99,7 @@ export const metadataMap: Record<string, Metadata> = {
       "combo spa Như Thị",
       "voucher Beauty Như Thị",
     ],
-    icons: logo.src,
+    icons: logo,
     openGraph: {
       title: "Khuyến Mãi - Như Thị Beauty",
       description:
@@ -119,7 +119,7 @@ export const metadataMap: Record<string, Metadata> = {
       "đội ngũ Như Thị Spa",
       "about Beauty Như Thị",
     ],
-    icons: logo.src,
+    icons: logo,
     openGraph: {
       title: "Giới Thiệu - Như Thị Beauty & Spa",
       description:
@@ -139,7 +139,7 @@ export const metadataMap: Record<string, Metadata> = {
       "kinh nghiệm spa Như Thị",
       "testimonial Beauty Như Thị",
     ],
-    icons: logo.src,
+    icons: logo,
     openGraph: {
       title: "Đánh Giá Khách Hàng - Như Thị Beauty",
       description:
@@ -159,7 +159,7 @@ export const metadataMap: Record<string, Metadata> = {
       "booking spa Như Thị",
       "contact Beauty Như Thị",
     ],
-    icons: logo.src,
+    icons: logo,
     openGraph: {
       title: "Liên Hệ - Đặt Lịch Như Thị Beauty",
       description:
@@ -187,7 +187,7 @@ export const defaultMetadata: Metadata = {
     "Như Thị",
     "Nhu Thi"
   ],
-  icons: logo.src,
+  icons: logo,
   authors: [{ name: "Như Thị Beauty" }],
   creator: "Như Thị Beauty",
   publisher: "Như Thị Beauty",

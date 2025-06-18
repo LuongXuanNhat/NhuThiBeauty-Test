@@ -1,13 +1,8 @@
 import Carousel from "@/components/carousel/carousel";
 import { Carousel_06_2025 } from "@/utils/carousel/item";
-import Image from "next/image";
-import Link from "next/link";
-import { Users } from "lucide-react";
 import { Metadata } from "next";
 import logo from "@/assets/logo/logo.png";
 import Service from "@/pages/services";
-import ReviewsPage from "@/pages/reviews";
-import StoriesPage from "@/pages/stories";
 
 export const metadata: Metadata = {
   title: "Nhu Thi Beauty",
