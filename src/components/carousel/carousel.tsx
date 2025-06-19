@@ -30,17 +30,14 @@ const Carousel: React.FC<CarouselProps> = ({
 
   if (!images || images.length === 0) return null;
 
-  // Xử lý height cho carousel
-  // Nếu height là số, thêm 'px', nếu là chuỗi, sử dụng trực tiếp
-  const carouselHeight = typeof height === "number" ? `${height}px` : height;
-
   return (
-    <div className="relative w-full mx-auto overflow-hidden shadow-sm">
-      <div className="relative" style={{ height: carouselHeight }}>
+    <div className="relative w-full mx-auto overflow-hidden">
+      {/* Container với responsive height bằng Tailwind */}
+      <div className="relative h-[250px] sm:h-[350px] md:h-[400px] lg:h-[500px] xl:h-[600px]">
         {images.map((img, index) => (
           <div
             key={index}
-            className={` absolute inset-0 transition-opacity duration-700 ${
+            className={`absolute inset-0 transition-opacity duration-700 ${
               index === current ? "opacity-100" : "opacity-0"
             }`}
           >
@@ -51,32 +48,36 @@ const Carousel: React.FC<CarouselProps> = ({
               quality={100}
               className={`${objFit} max-w-[100vw]`}
               priority={index === 0}
+              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 50vw"
             />
           </div>
         ))}
       </div>
 
+      {/* Navigation buttons - responsive size */}
       <button
         onClick={goToPrev}
-        className="absolute top-1/2 z-10 left-4 -translate-y-1/2 bg-white/50 p-2 rounded-full hover:bg-white shadow"
+        className="absolute top-1/2 z-10 left-2 sm:left-4 -translate-y-1/2 bg-white/50 backdrop-blur-sm p-1.5 sm:p-2 rounded-full hover:bg-white/80 shadow-md transition-all duration-200"
       >
-        <ChevronLeft />
+        <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6" />
       </button>
       <button
         onClick={goToNext}
-        className="absolute top-1/2 z-10 right-4 -translate-y-1/2 bg-white/50 p-2 rounded-full hover:bg-white shadow"
+        className="absolute top-1/2 z-10 right-2 sm:right-4 -translate-y-1/2 bg-white/50 backdrop-blur-sm p-1.5 sm:p-2 rounded-full hover:bg-white/80 shadow-md transition-all duration-200"
       >
-        <ChevronRight />
+        <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6" />
       </button>
 
-      {/* Chấm tròn indicator */}
-      <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex space-x-2">
+      {/* Dots indicator - responsive size và position */}
+      <div className="absolute bottom-2 sm:bottom-3 lg:bottom-4 left-1/2 -translate-x-1/2 flex space-x-1.5 sm:space-x-2">
         {images.map((_, idx) => (
           <button
             key={idx}
             onClick={() => setCurrent(idx)}
-            className={`w-3 h-3 rounded-full ${
-              current === idx ? "bg-white" : "bg-gray-400"
+            className={`w-2 h-2 sm:w-2.5 sm:h-2.5 lg:w-3 lg:h-3 rounded-full transition-all duration-200 ${
+              current === idx 
+                ? "bg-white scale-110 shadow-sm" 
+                : "bg-white/60 hover:bg-white/80"
             }`}
           />
         ))}

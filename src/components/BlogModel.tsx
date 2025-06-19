@@ -189,7 +189,7 @@ const BlogModal: React.FC<BlogModalProps> = ({ isOpen, blog, onClose }) => {
               ×
             </button>
 
-            <h1 className="text-base md:text-2xl font-bold pr-12 text-shadow-2xs">
+            <h1 className="text-center text-base md:text-2xl font-bold pr-12 text-shadow-2xs">
               {blog.title}
             </h1>
           </div>

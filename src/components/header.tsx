@@ -114,7 +114,7 @@ export default function Header() {
         {/* Desktop Navigation */}
         <div className="hidden md:flex items-center justify-between">
           {/* Left Menu Items */}
-          <ul className="flex flex-1 justify-end space-x-6 pr-4">
+          <ul className="flex flex-1 justify-end space-x-6 pr-6">
             {leftRoutes.map((route: RouteItem) => (
               <li
                 key={route.path}
@@ -122,7 +122,7 @@ export default function Header() {
               >
                 <Link
                   href={route.path}
-                  className="hover:text-pink-200 transition-colors font-bold text-shadow-2xs"
+                  className="hover:text-pink-200 transition-colors font-semibold text-shadow-2xs"
                 >
                   {route.name}
                 </Link>
@@ -143,7 +143,7 @@ export default function Header() {
           </div>
 
           {/* Right Menu Items */}
-          <ul className="flex flex-1 justify-start space-x-6 pl-4">
+          <ul className="flex flex-1 justify-start space-x-6 pl-6">
             {rightRoutes.map((route: RouteItem) => (
               <li
                 key={route.path}
@@ -151,7 +151,7 @@ export default function Header() {
               >
                 <Link
                   href={route.path}
-                  className="hover:text-pink-200 transition-colors font-bold"
+                  className="hover:text-pink-200 transition-colors font-semibold"
                 >
                   {route.name}
                 </Link>

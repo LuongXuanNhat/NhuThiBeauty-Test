@@ -408,7 +408,7 @@ export default function Service({ isActive = true }: { isActive?: boolean }) {
   };
 
   return (
-    <div className="bg-gradient-to-b from-pink-50 via-white to-rose-50">
+    <div className="">
       <div className="container mx-auto py-16 px-4" id="dich-vu">
         <motion.div
           initial={{ opacity: 0, y: 30 }}

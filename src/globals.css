@@ -8,8 +8,9 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
+  --font-sans: var(--font-montserrat);
   --font-mono: var(--font-geist-mono);
+  
 }
 
 @media (prefers-color-scheme: dark) {
@@ -21,8 +22,8 @@
 
 body {
   background: var(--background);
-  color: var(--foreground);
-  font-family: Montserrat, Arial, Helvetica, sans-serif;
+  color: var(--foreground); 
+  font-family: var(--font-montserrat), sans-serif;
 }
 
 /* HTML: <div class="loader"></div> */
