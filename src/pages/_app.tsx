@@ -1,11 +1,15 @@
+import type { AppProps } from 'next/app';
 import "../globals.css";
-import type { AppProps } from "next/app";
-import Layout from "@/app/layout";
+import Header from "@/components/header";
+import Footer from "@/components/footer";
+import { montserrat } from "@/style/fonts/Montserrat";
 
-export default function MyApp({ Component, pageProps }: AppProps) {
+export default function App({ Component, pageProps }: AppProps) {
   return (
-    <Layout>
-      <Component {...pageProps} />
-    </Layout>
+    <div className={montserrat.className}>
+      <Header />
+        <Component {...pageProps} />
+      <Footer />
+    </div>
   );
 }
