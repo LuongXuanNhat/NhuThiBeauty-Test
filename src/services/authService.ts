@@ -124,7 +124,7 @@ class AuthService {
   async resetPassword(email: string, redirectUrl?: string): Promise<{ error?: string }> {
     try {
       const { error } = await this.supabase.auth.resetPasswordForEmail(email, {
-        redirectTo: redirectUrl + `/reset-password`
+        redirectTo: 'http://localhost:3000/reset-password'
       })
       if (error) {
         return { error: error.message }
