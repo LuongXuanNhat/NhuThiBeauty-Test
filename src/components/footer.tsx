@@ -122,7 +122,7 @@ export default function Footer() {
         </section>
       </div>
       <p>&copy; 2025 Nhu Thi Beauty. All rights reserved.</p>
-      <p>Làm đẹp chất lượng uy tín số 1 Việt Nam</p>
+      <p>Tỏa sáng vẻ đẹp tự nhiên – Nâng niu từng khoảnh khắc</p>
     </footer>
   );
 }
