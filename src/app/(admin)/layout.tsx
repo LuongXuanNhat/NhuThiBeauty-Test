@@ -1,3 +1,4 @@
+import Sidebar from '@/components/sidebar';
 import { AuthProvider } from '@/contexts/AuthContext';
 
 export default function AdminLayout({
@@ -7,6 +8,7 @@ export default function AdminLayout({
 }) {
   return (
     <AuthProvider>
+      <Sidebar />
       {children}
     </AuthProvider>
   );
