@@ -1,22 +1,17 @@
-'use client'
+"use client";
 
-import { useAuth } from '@/contexts/AuthContext'
-import { User } from '@supabase/supabase-js'
-import { useRouter } from 'next/navigation'
+import { useAuth } from "@/contexts/AuthContext";
+import { User } from "@supabase/supabase-js";
+import { useRouter } from "next/navigation";
 
 interface DashboardClientProps {
-  user: User
-  items: any[] // Thay bằng type cụ thể của dữ liệu
+  user: User;
+  items: any[]; // Thay bằng type cụ thể của dữ liệu
 }
 
 export default function DashboardClient({ user, items }: DashboardClientProps) {
-  const { signOut } = useAuth()
-  const router = useRouter()
-
-  const handleSignOut = async () => {
-    await signOut()
-    router.push('/login')
-  }
+  const { signOut } = useAuth();
+  const router = useRouter();
 
   return (
     <div className="container mx-auto px-4 py-8">
@@ -26,12 +21,6 @@ export default function DashboardClient({ user, items }: DashboardClientProps) {
             <h1 className="text-2xl font-bold">Dashboard</h1>
             <p className="text-gray-600">Chào mừng, {user.email}</p>
           </div>
-          <button
-            onClick={handleSignOut}
-            className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
-          >
-            Đăng xuất
-          </button>
         </div>
       </div>
 
@@ -52,5 +41,5 @@ export default function DashboardClient({ user, items }: DashboardClientProps) {
         )}
       </div>
     </div>
-  )
+  );
 }
