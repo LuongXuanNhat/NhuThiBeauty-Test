@@ -19,7 +19,7 @@ export async function GET(request: NextRequest) {
     let result;
     if (search.trim()) {
       result = await ServerDatabaseService.search<any>(
-        "customers",
+        "Customer",
         "name",
         search.trim(),
         {
@@ -112,7 +112,7 @@ export async function PUT(request: NextRequest) {
     };
 
     const result = await ServerDatabaseService.update(
-      "customers",
+      "Customer",
       id,
       customerData
     );
@@ -135,7 +135,7 @@ export async function DELETE(request: NextRequest) {
       return NextResponse.json({ error: "ID is required" }, { status: 400 });
     }
 
-    const result = await ServerDatabaseService.delete("customers", id);
+    const result = await ServerDatabaseService.delete("Customer", id);
     return NextResponse.json(result);
   } catch (error) {
     return NextResponse.json(

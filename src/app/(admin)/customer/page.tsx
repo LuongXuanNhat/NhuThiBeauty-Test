@@ -13,6 +13,7 @@ import {
   MapPin,
 } from "lucide-react";
 import CreateOrUpdateCustomer from "@/components/customer/CreateOrUpdateCustomer";
+import { toast } from "react-toastify";
 
 interface Customer {
   id: number;
@@ -134,12 +135,13 @@ export default function CustomerPage() {
       const result = await response.json();
 
       if (result.error) {
-        alert("Có lỗi xảy ra khi xóa khách hàng");
+        toast.error("Có lỗi xảy ra khi xóa khách hàng");
       } else {
+        toast.success("Xóa khách hàng thành công");
         fetchCustomers();
       }
     } catch (error) {
-      alert("Có lỗi xảy ra khi xóa khách hàng");
+      toast.error("Có lỗi xảy ra khi xóa khách hàng");
     }
   };
 

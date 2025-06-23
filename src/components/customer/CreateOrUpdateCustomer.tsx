@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { X } from "lucide-react";
 import { Customer } from "@/model/Customer";
+import { toast } from "react-toastify";
 
 interface CreateOrUpdateCustomerProps {
   isOpen: boolean;
@@ -113,17 +114,17 @@ export default function CreateOrUpdateCustomer({
       const result = await response.json();
 
       if (result.error) {
-        alert(
+        toast.error(
           `Có lỗi xảy ra khi ${isEditMode ? "cập nhật" : "thêm"} khách hàng: ` +
             result.error
         );
       } else {
         onSuccess();
         onClose();
-        alert(`${isEditMode ? "Cập nhật" : "Thêm"} khách hàng thành công!`);
+        toast.success(`${isEditMode ? "Cập nhật" : "Thêm"} khách hàng thành công!`);
       }
     } catch (error) {
-      alert(`Có lỗi xảy ra khi ${isEditMode ? "cập nhật" : "thêm"} khách hàng`);
+      toast.error(`Có lỗi xảy ra khi ${isEditMode ? "cập nhật" : "thêm"} khách hàng`);
     } finally {
       setIsSubmitting(false);
     }
