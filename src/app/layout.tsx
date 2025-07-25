@@ -10,7 +10,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={montserrat.className}>
-        <ToastContainer position="top-right" autoClose={3000} hideProgressBar={true} />
+        <ToastContainer
+          position="top-right"
+          autoClose={3000}
+          hideProgressBar={true}
+        />
         {children}
       </body>
     </html>

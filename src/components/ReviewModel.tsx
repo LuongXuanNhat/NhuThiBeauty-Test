@@ -3,6 +3,11 @@ import Image from "next/image";
 import ImageModal from "./ImageModel";
 import { Review } from "@/model/review";
 import { InitialAvatar } from "./Avatar";
+import { init, trackClick } from "tracker-api";
+
+init({
+  apiKey: process.env.NEXT_PUBLIC_TRACKING_API_KEY,
+});
 
 interface ReviewModalProps {
   isOpen: boolean;
@@ -10,10 +15,34 @@ interface ReviewModalProps {
   onClose: () => void;
 }
 
-const ReviewModel: React.FC<ReviewModalProps> = ({ isOpen, review: review, onClose }) => {
+const ReviewModel: React.FC<ReviewModalProps> = ({
+  isOpen,
+  review: review,
+  onClose,
+}) => {
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
   const [isImageModalOpen, setIsImageModalOpen] = useState(false);
   const [copySuccess, setCopySuccess] = useState(false);
+
+  useEffect(() => {
+    const trackUserClick = async () => {
+      if (isOpen) {
+        const response = await trackClick(
+          "user123",
+          "button",
+          "reviews",
+          "btn-abc",
+          { Test: true },
+          true
+        );
+        console.log("Kết quả call api: ", response);
+      }
+    };
+
+    setTimeout(() => {
+      trackUserClick();
+    }, 300);
+  }, [isOpen]);
 
   // Reset selected image when review changes
   useEffect(() => {
@@ -164,7 +193,6 @@ const ReviewModel: React.FC<ReviewModalProps> = ({ isOpen, review: review, onClo
     </div>
   );
 
-    
   return (
     <>
       <div
@@ -185,15 +213,15 @@ const ReviewModel: React.FC<ReviewModalProps> = ({ isOpen, review: review, onClo
               ×
             </button>
 
-                      <div className="flex text-white items-center">
-                          <InitialAvatar
-                                        name={review.name}
-                                        avatar={review.avatar}
-                                        size={40}
-                                      />
-                          <h1 className="ml-2 text-base md:text-2xl font-bold pr-12 text-shadow-xs">
-              {review.name}
-            </h1>
+            <div className="flex text-white items-center">
+              <InitialAvatar
+                name={review.name}
+                avatar={review.avatar}
+                size={40}
+              />
+              <h1 className="ml-2 text-base md:text-2xl font-bold pr-12 text-shadow-xs">
+                {review.name}
+              </h1>
             </div>
           </div>
 
@@ -237,8 +265,6 @@ const ReviewModel: React.FC<ReviewModalProps> = ({ isOpen, review: review, onClo
                 className="prose prose-sm md:prose-base max-w-none text-gray-700 leading-relaxed mb-5"
                 dangerouslySetInnerHTML={{ __html: review.content }}
               />
-
-        
             </div>
 
             {/* Right Column - Images (Desktop always visible + Mobile when fixed) */}
@@ -250,15 +276,13 @@ const ReviewModel: React.FC<ReviewModalProps> = ({ isOpen, review: review, onClo
                 </div>
 
                 {/* Mobile fixed version */}
-                {(
+                {
                   <div className="lg:hidden flex-1 lg:w-1/2 flex flex-col border-t lg:border-t-0 lg:border-l border-gray-200 relative">
                     <ImageSection />
                   </div>
-                )}
+                }
               </>
             )}
-
-         
           </div>
         </div>
       </div>
