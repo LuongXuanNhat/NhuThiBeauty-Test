@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
@@ -26,11 +26,28 @@ import {
   useDynamicMetadata,
 } from "@/hooks/useDynamicMetadata";
 import { Metadata } from "next";
+import { usePathname } from "next/navigation";
+import { TrackerEnum, trackPageView } from "tracker-api";
 
 export const metadata: Metadata = getMetadataByPath("/about");
 
 export default function About() {
   useDynamicMetadata();
+  const currentPath = usePathname() || "/services";
+  useEffect(() => {
+    const trackUserClick = async () => {
+      await trackPageView({
+        page_url: currentPath,
+        event_name: TrackerEnum.EventName.link_click,
+        event_type: TrackerEnum.EventType.pageview,
+        browser: navigator.userAgent,
+      });
+    };
+
+    setTimeout(() => {
+      trackUserClick();
+    }, 300);
+  }, []);
   const spaInfo = {
     name: "Như Thị Beauty",
     address: "130 An Dương, Tây Hồ, Hà Nội",
@@ -95,6 +112,16 @@ export default function About() {
       scale: 1.05,
       transition: { duration: 0.3 },
     },
+  };
+
+  const handleEvent = async () => {
+    await trackPageView({
+      page_url: "/about",
+      page_title: "Giới thiệu - Nhu Thi Beauty",
+      event_type: TrackerEnum.EventType.click,
+      event_name: TrackerEnum.EventName.link_click,
+      browser: navigator.userAgent,
+    });
   };
 
   return (
@@ -398,7 +425,9 @@ export default function About() {
           >
             <Link
               href="https://www.facebook.com/messages/t/426405767222004"
+              target="_blank"
               className="inline-block bg-white text-pink-600 font-medium px-8 py-3 rounded-full hover:bg-gray-100 transition-colors"
+              onClick={() => handleEvent()}
             >
               Đặt Lịch Ngay
             </Link>

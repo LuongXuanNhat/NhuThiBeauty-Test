@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import Image, { StaticImageData } from "next/image";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
@@ -21,6 +21,8 @@ import Carousel from "@/components/carousel/carousel";
 import { Users, X, ZoomIn, ZoomOut, Move } from "lucide-react";
 import { Metadata } from "next";
 import { serviceDataSource } from "@/utils/serviceDataSource";
+import { trackClick, TrackerEnum, trackPageView } from "tracker-api";
+import { usePathname } from "next/navigation";
 
 // Service Popup Component
 interface ServicePopupProps {
@@ -136,7 +138,15 @@ const ServicePopup: React.FC<ServicePopupProps> = ({
   };
 
   // Reset zoom when changing images
-  const handleImageChange = (index: number) => {
+  const handleImageChange = async (index: number) => {
+    await trackClick({
+      page_url: "/services",
+      event_type: TrackerEnum.EventType.click,
+      event_name: "Xem ảnh",
+      browser: navigator.userAgent,
+      page_title: service.title,
+      element_type: TrackerEnum.EventType.click,
+    });
     setSelectedImageIndex(index);
     resetZoom();
   };
@@ -346,6 +356,21 @@ export const metadata: Metadata = getMetadataByPath("/services");
 
 export default function Service({ isActive = true }: { isActive?: boolean }) {
   console.log(isActive);
+  const currentPath = usePathname() || "/services";
+  useEffect(() => {
+    const trackUserClick = async () => {
+      await trackPageView({
+        page_url: currentPath,
+        event_name: TrackerEnum.EventName.link_click,
+        event_type: TrackerEnum.EventType.pageview,
+        browser: navigator.userAgent,
+      });
+    };
+
+    setTimeout(() => {
+      trackUserClick();
+    }, 300);
+  }, []);
   if (isActive) useDynamicMetadata();
   const [selectedService, setSelectedService] = useState<ServiceItem | null>(
     null
@@ -397,7 +422,15 @@ export default function Service({ isActive = true }: { isActive?: boolean }) {
     },
   ];
 
-  const handleServiceClick = (service: ServiceItem) => {
+  const handleServiceClick = async (service: ServiceItem) => {
+    await trackClick({
+      page_url: currentPath,
+      event_name: TrackerEnum.EventName.open_modal,
+      event_type: TrackerEnum.EventType.click,
+      browser: navigator.userAgent,
+      page_title: service.title,
+      element_type: TrackerEnum.EventType.click,
+    });
     setSelectedService(service);
     setIsPopupOpen(true);
   };

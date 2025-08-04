@@ -20,7 +20,7 @@
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-toastify": "^11.0.5",
-    "tracker-api": "^1.0.8"
+    "tracker-api": "^2.0.10"
   },
   "devDependencies": {
     "@eslint/js": "^9.27.0",

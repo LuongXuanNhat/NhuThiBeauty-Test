@@ -1,13 +1,20 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, use, useRef } from "react";
 import Image from "next/image";
 import ImageModal from "./ImageModel";
 import { Review } from "@/model/review";
 import { InitialAvatar } from "./Avatar";
-import { init, trackClick } from "tracker-api";
+import {
+  init,
+  trackClick,
+  trackScroll,
+  TrackerEnum,
+  trackPageView,
+} from "tracker-api";
+import { usePathname } from "next/navigation";
 
-init({
-  apiKey: process.env.NEXT_PUBLIC_TRACKING_API_KEY,
-});
+// init({
+//   apiKey: process.env.NEXT_PUBLIC_TRACKING_API_KEY,
+// });
 
 interface ReviewModalProps {
   isOpen: boolean;
@@ -23,26 +30,66 @@ const ReviewModel: React.FC<ReviewModalProps> = ({
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
   const [isImageModalOpen, setIsImageModalOpen] = useState(false);
   const [copySuccess, setCopySuccess] = useState(false);
+  const contentRef = useRef<HTMLDivElement>(null);
+  const lastScrollTime = useRef<number>(0);
 
+  // Track modal open and setup scroll listener
   useEffect(() => {
+    if (!isOpen) return;
+
     const trackUserClick = async () => {
-      if (isOpen) {
-        const response = await trackClick(
-          "user123",
-          "button",
-          "reviews",
-          "btn-abc",
-          { Test: true },
-          true
-        );
-        console.log("Kết quả call api: ", response);
-      }
+      const response = await trackClick({
+        page_url: getBlogUrl(),
+        event_type: TrackerEnum.EventType.pageview,
+        event_name: TrackerEnum.EventName.open_modal,
+        browser: navigator.userAgent,
+        page_title: review.name,
+        element_type: TrackerEnum.EventType.click,
+      });
+      console.log("Kết quả call api: ", response);
     };
 
-    setTimeout(() => {
+    // Track modal open
+    const openTrackTimeout = setTimeout(() => {
       trackUserClick();
     }, 300);
-  }, [isOpen]);
+
+    // Setup scroll tracking
+    let scrollTimeout: NodeJS.Timeout;
+    const handleScroll = (e: Event) => {
+      clearTimeout(scrollTimeout);
+      scrollTimeout = setTimeout(() => {
+        scrollEventHandler();
+      }, 500); // Delay 500ms after scroll stops
+    };
+
+    // Add scroll listener to the content container
+    const contentElement = contentRef.current;
+    if (contentElement) {
+      console.log("Adding scroll listener to content element");
+      contentElement.addEventListener("scroll", handleScroll, {
+        passive: true,
+      });
+    }
+
+    // Also find any scrollable containers as fallback
+    const modalContent = document.querySelector(".overflow-y-auto");
+    if (modalContent && modalContent !== contentElement) {
+      console.log("Adding scroll listener to modal content fallback");
+      modalContent.addEventListener("scroll", handleScroll, { passive: true });
+    }
+
+    return () => {
+      clearTimeout(openTrackTimeout);
+      clearTimeout(scrollTimeout);
+      if (contentElement) {
+        contentElement.removeEventListener("scroll", handleScroll);
+      }
+      if (modalContent && modalContent !== contentElement) {
+        modalContent.removeEventListener("scroll", handleScroll);
+      }
+    };
+  }, [isOpen, review.id, review.name]);
 
   // Reset selected image when review changes
   useEffect(() => {
@@ -101,12 +148,61 @@ const ReviewModel: React.FC<ReviewModalProps> = ({
     return "";
   };
 
+  const scrollEventHandler = async () => {
+    try {
+      // Throttle API calls - chỉ gọi mỗi 3 giây
+      const now = Date.now();
+      if (now - lastScrollTime.current < 3000) {
+        console.log("Scroll tracking throttled");
+        return;
+      }
+      lastScrollTime.current = now;
+
+      const contentElement = contentRef.current;
+      const scrollInfo = contentElement
+        ? {
+            scrollTop: contentElement.scrollTop,
+            scrollHeight: contentElement.scrollHeight,
+            clientHeight: contentElement.clientHeight,
+            scrollPercentage: Math.round(
+              (contentElement.scrollTop /
+                (contentElement.scrollHeight - contentElement.clientHeight)) *
+                100
+            ),
+          }
+        : null;
+
+      console.log("Scroll event triggered for review:", review.name);
+      console.log("Scroll info:", scrollInfo);
+      console.log("Current URL:", getBlogUrl());
+
+      await trackScroll({
+        page_url: getBlogUrl(),
+        page_title: review.name,
+        event_name: `Cuộn trang - ${scrollInfo?.scrollPercentage || 0}%`,
+        event_type: TrackerEnum.EventType.scroll,
+        browser: navigator.userAgent,
+      });
+
+      console.log("Scroll tracking sent successfully");
+    } catch (error) {
+      console.error("Error tracking scroll:", error);
+    }
+  };
+
   // Copy link function - sử dụng URL SEO-friendly
   const handleCopyLink = async () => {
     try {
       const blogUrl = getBlogUrl();
       await navigator.clipboard.writeText(blogUrl);
       setCopySuccess(true);
+      await trackPageView({
+        page_url: blogUrl,
+        page_title: review.name,
+        event_name: TrackerEnum.EventName.copy_link,
+        event_type: TrackerEnum.EventType.click,
+        browser: navigator.userAgent,
+      });
       setTimeout(() => setCopySuccess(false), 2000);
     } catch (err) {
       console.error("Failed to copy link:", err);
@@ -127,8 +223,16 @@ const ReviewModel: React.FC<ReviewModalProps> = ({
   };
 
   // Handle image click
-  const handleImageClick = () => {
+  const handleImageClick = async () => {
     if (review.images && review.images.length > 0) {
+      await trackClick({
+        page_url: getBlogUrl(),
+        event_type: TrackerEnum.EventType.click,
+        event_name: "Xem ảnh",
+        browser: navigator.userAgent,
+        page_title: review.name,
+        element_type: TrackerEnum.EventType.click,
+      });
       setIsImageModalOpen(true);
     }
   };
@@ -228,7 +332,10 @@ const ReviewModel: React.FC<ReviewModalProps> = ({
           {/* Content */}
           <div className="flex flex-col lg:flex-row h-full max-h-[calc(100vh-180px)] min-h-96 overflow-hidden relative">
             {/* Left Column - Content */}
-            <div className="flex-1 lg:w-1/2 px-6 pt-2 overflow-y-auto">
+            <div
+              ref={contentRef}
+              className="flex-1 lg:w-1/2 px-6 pt-2 overflow-y-auto"
+            >
               <div className="mb-2">
                 <div className="flex items-center">
                   <button

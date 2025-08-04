@@ -1,3 +1,5 @@
+"use client";
+
 import { ToastContainer } from "react-toastify";
 import "../globals.css";
 import { montserrat } from "@/style/fonts/Montserrat";

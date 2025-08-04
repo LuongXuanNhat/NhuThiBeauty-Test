@@ -2,15 +2,16 @@
 
 import Carousel from "@/components/carousel/carousel";
 import { Carousel_06_2025 } from "@/utils/carousel/item";
-import { Metadata } from "next";
-import logo from "@/assets/logo/logo.png";
 import Service from "@/pages/services";
-import { init, trackClick } from "tracker-api";
 import { useEffect } from "react";
-
-init({
-  apiKey: process.env.NEXT_PUBLIC_TRACKING_API_KEY,
-});
+import {
+  trackPageView,
+  TrackingAPI,
+  TrackerEnum,
+  trackScroll,
+} from "tracker-api";
+import { Router } from "next/router";
+import { usePathname } from "next/navigation";
 
 // export const metadata: Metadata = {
 //   title: "Nhu Thi Beauty",
@@ -40,23 +41,53 @@ init({
 // };
 
 export default function Home() {
+  const pathname = usePathname() || "/";
   useEffect(() => {
     const trackUserClick = async () => {
-      const response = await trackClick(
-        "user123",
-        "button",
-        "homepage",
-        "btn-abc",
-        { Test: true },
-        true
-      );
-      console.log("Kết quả call api: ", response);
+      await trackPageView({
+        page_url: pathname,
+        page_title: "Trang chủ - Nhu Thi Beauty",
+        element_type: TrackerEnum.EventType.pageview,
+        event_name: TrackerEnum.EventName.link_click,
+        browser: navigator.userAgent,
+      });
     };
 
     setTimeout(() => {
       trackUserClick();
     }, 300);
   }, []);
+
+  // Add scroll event listener
+  useEffect(() => {
+    // Throttle scroll events to avoid too many API calls
+    let scrollTimeout: NodeJS.Timeout;
+    const handleScroll = () => {
+      clearTimeout(scrollTimeout);
+      scrollTimeout = setTimeout(() => {
+        scrollEventHandler();
+      }, 500); // Delay 500ms after scroll stops
+    };
+
+    document.addEventListener("scroll", handleScroll, { passive: true });
+
+    return () => {
+      document.removeEventListener("scroll", handleScroll);
+      clearTimeout(scrollTimeout);
+    };
+  }, [pathname]);
+
+  const scrollEventHandler = async () => {
+    console.log("Scroll event triggered");
+    await trackScroll({
+      page_url: pathname,
+      page_title: "Trang chủ - Nhu Thi Beauty",
+      event_name: "Cuộn trang",
+      event_type: TrackerEnum.EventType.scroll,
+      browser: navigator.userAgent,
+    });
+  };
+
   return (
     <div className="">
       <section className="relative flex min-h-[400px] sm:min-h-[500px] mx-auto flex-wrap container">

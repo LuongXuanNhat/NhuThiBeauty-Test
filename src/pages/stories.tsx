@@ -1,7 +1,7 @@
-'use client'
+"use client";
 
 import React, { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import Image from "next/image";
 import { Blog } from "@/model/blog";
 import { blogDataSource } from "@/utils/blogDataSource";
@@ -12,6 +12,7 @@ import {
   useDynamicMetadata,
 } from "@/hooks/useDynamicMetadata";
 import { Metadata } from "next";
+import { TrackerEnum, trackPageView } from "tracker-api";
 
 export const metadata: Metadata = getMetadataByPath("/stories");
 const StoriesPage: React.FC = () => {
@@ -34,6 +35,22 @@ const StoriesPage: React.FC = () => {
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
   const currentBlogs = sortedBlogs.slice(startIndex, endIndex);
+
+  const currentPath = usePathname() || "/services";
+  useEffect(() => {
+    const trackUserClick = async () => {
+      await trackPageView({
+        page_url: currentPath,
+        event_name: TrackerEnum.EventName.link_click,
+        event_type: TrackerEnum.EventType.pageview,
+        browser: navigator.userAgent,
+      });
+    };
+
+    setTimeout(() => {
+      trackUserClick();
+    }, 300);
+  }, []);
 
   // Hàm chuyển đổi title thành slug
   const createSlug = (title: string): string => {
